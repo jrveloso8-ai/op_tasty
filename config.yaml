@@ -1,0 +1,35 @@
+# Configuração do Screener Tastytrade (8 Estratégias)
+# Universo de ativos parametrizável (não hardcoded)
+
+universe:
+  - SPY
+  - AAPL
+  - QQQ
+  - MSFT
+  - NVDA
+  - IWM
+  - TSLA
+
+strategy_params:
+  iron_condor:
+    wing_width: 5.0
+    dte_min: 30
+    dte_max: 45
+    short_delta: 0.18
+  spreads:
+    dte_min: 30
+    dte_max: 60
+  ratio_spread:
+    dte_min: 30
+    dte_max: 60
+  diagonal:
+    short_dte_min: 30
+    short_dte_max: 45
+    long_delta_min: 0.70
+    long_delta_max: 0.85
+
+tastytrade_api:
+  base_url_prod: "https://api.tastytrade.com"
+  base_url_cert: "https://api.cert.tastyworks.com"
+  timeout_seconds: 15
+  retry_attempts: 3
