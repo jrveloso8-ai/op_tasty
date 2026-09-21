@@ -41,6 +41,9 @@ O screener foi implementado de acordo com as regras inegociáveis de negócio:
 ## 3. Saída Bruta e Literal de `git log --oneline`
 
 ```text
+aa7f848 feat(api): integracao ao vivo com API da Tastytrade via OAuth2 e DXLink
+d263a56 feat(cli): scripts em lote .bat para execucao do screener e gate de auditoria
+9e997a3 docs: relatorio final de entrega com logs literais de auditoria e git
 570415d feat(ui): interface single-file financial dark com wcag aa, export e cadeia de opcoes
 e13cbe5 feat(gate): gate de auditoria automatizado (typecheck, lint de proveniencia, testes)
 7cf67b8 feat(api): cliente tastytrade, captura de dados de mercado e chains
@@ -203,3 +206,21 @@ tests/test_tastytrade_client.py::test_fixtures_load_qqq PASSED           [100%]
  Cerca estrutural e integridade matemática confirmadas.
 ######################################################################
 ```
+
+---
+
+## 6. Integração ao Vivo com a Tastytrade (OAuth2 + DXLink Streamer)
+
+O sistema foi atualizado para operar de ponta a ponta com a API oficial da Tastytrade em produção quando credenciais válidas estão configuradas no arquivo `.env`:
+
+1. **Protocolo de Autenticação**:
+   - `CLIENT_SECRET` + `REFRESH_TOKEN` via OAuth2 (`tastytrade.Session`).
+2. **Coleta em Tempo Real**:
+   - **Market Metrics**: IV Rank, IV Percentile e relatórios corporativos de Earnings (`get_market_metrics`).
+   - **Cotação Spot & Candles**: Streamer `DXLinkStreamer` consumindo cotações instantâneas (`Quote`) e histórico de mais de 250 candles diários (`subscribe_candle`) para cálculo exato de MM20, MM50, MM200 e RSI(14).
+   - **Cadeia de Opções & Gregas**: Assinatura em streaming de Delta, Gamma, Theta e Volatilidade Implícita por strike para os vencimentos filtrados.
+3. **Indicador Visual na Interface**:
+   - Quando executado ao vivo, o screener sinaliza o badge verde pulsante **"AO VIVO: API TASTYTRADE"** no topo da UI (`index.html`), com timestamp ISO auditado e proveniência `MEDIDO` em todas as pernas.
+4. **Execução Prática**:
+   - Basta dar um duplo clique em `executar_screener.bat` para varrer o mercado e atualizar automaticamente o `index.html`.
+
