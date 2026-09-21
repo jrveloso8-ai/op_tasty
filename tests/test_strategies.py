@@ -6,20 +6,21 @@ Garante para CADA UMA das 8 estratégias:
 Provando que todos os filtros discriminam rigorosamente as oportunidades.
 """
 
-import pytest
-from src.provenance import DataValue
+
+
 from src.indicators import TrendAnalysis
-from src.pricing import OptionLeg
 from src.models import MarketContext
+from src.pricing import OptionLeg
+from src.provenance import DataValue
 from src.strategies.implementations import (
-    BullCallSpreadStrategy,
     BearPutSpreadStrategy,
-    LongStrangleStrategy,
-    IronCondorStrategy,
+    BullCallSpreadStrategy,
     CalendarSpreadStrategy,
+    CallBackspreadStrategy,
     DiagonalSpreadStrategy,
+    IronCondorStrategy,
+    LongStrangleStrategy,
     PutRatioSpreadStrategy,
-    CallBackspreadStrategy
 )
 
 
@@ -83,6 +84,7 @@ def _build_context(
         notes="mocked"
     )
 
+    dv_event: DataValue[bool | None]
     if event_in_horizon is None:
         dv_event = DataValue.indisponivel("api:event", endpoint, ts)
     else:

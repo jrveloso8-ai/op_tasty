@@ -4,12 +4,8 @@ Garante a regra estrita da Seção 5.1 (Ask para compra, Bid para venda,
 rótulos conforme sinal real, e contágio por bid/ask ausente ou zero).
 """
 
-import pytest
+from src.pricing import OptionLeg, calculate_conservative_pricing
 from src.provenance import DataValue
-from src.pricing import (
-    OptionLeg,
-    calculate_conservative_pricing
-)
 
 
 def _make_leg(

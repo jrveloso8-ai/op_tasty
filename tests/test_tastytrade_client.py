@@ -3,9 +3,9 @@ Testes Unitários do Cliente Tastytrade e Validação de Fixtures Auditadas.
 Garante a Seção 3.1, 3.2, 3.3 e 3.4 da Especificação Técnica.
 """
 
-from src.tastytrade_client import TastytradeClient
 from src.pricing import OptionLeg
 from src.provenance import DataValue
+from src.tastytrade_client import TastytradeClient
 
 
 def test_atm_weighted_iv_formula() -> None:
@@ -31,6 +31,7 @@ def test_atm_weighted_iv_formula() -> None:
 
     assert result.is_available is True
     assert result.provenance == "DERIVADO"
+    assert result.value is not None
     # peso1 = 1.0, peso2 = 1/6 = 0.1667 -> soma_pesos = 1.1667
     # soma_iv = 1.0 * 30 + 0.1667 * 36 = 30 + 6 = 36
     # média = 36 / 1.1667 = ~30.857
@@ -47,7 +48,9 @@ def test_fixtures_load_spy() -> None:
     assert ctx.event_in_horizon.provenance == "INDISPONIVEL"  # Demonstrando conformidade Seção 3.4
     assert len(ctx.chains_by_expiration) >= 2
     # Curva a termo de IV invertida em SPY (Curto 38.0 > Longo 30.0)
-    assert ctx.term_structure_atm_iv["2026-10-16"].value > ctx.term_structure_atm_iv["2026-11-20"].value
+    short_iv = ctx.term_structure_atm_iv["2026-10-16"].value
+    long_iv = ctx.term_structure_atm_iv["2026-11-20"].value
+    assert short_iv is not None and long_iv is not None and short_iv > long_iv
 
 
 def test_fixtures_load_aapl() -> None:

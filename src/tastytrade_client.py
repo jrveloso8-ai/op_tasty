@@ -10,16 +10,18 @@ Implementa:
 """
 
 from __future__ import annotations
+
 import json
-import os
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Any, Optional, Sequence
+from typing import Any
+
 import requests
 
-from src.provenance import DataValue, current_iso_timestamp
-from src.indicators import analyze_trend, TrendAnalysis
-from src.pricing import OptionLeg
+from src.indicators import analyze_trend
 from src.models import MarketContext
+from src.pricing import OptionLeg
+from src.provenance import DataValue, current_iso_timestamp
 
 
 class TastytradeClient:
@@ -28,9 +30,9 @@ class TastytradeClient:
     def __init__(
         self,
         base_url: str = "https://api.tastytrade.com",
-        session_token: Optional[str] = None,
+        session_token: str | None = None,
         timeout: int = 15,
-        fixtures_dir: Optional[Path] = None
+        fixtures_dir: Path | None = None
     ) -> None:
         self.base_url = base_url.rstrip("/")
         self.session_token = session_token
@@ -43,7 +45,7 @@ class TastytradeClient:
             headers["Authorization"] = self.session_token
         return headers
 
-    def authenticate(self, login: str, password: str, remember_token: Optional[str] = None) -> bool:
+    def authenticate(self, login: str, password: str, remember_token: str | None = None) -> bool:
         """Autentica na Tastytrade e armazena o token de sessão."""
         url = f"{self.base_url}/sessions"
         payload: dict[str, Any] = {"login": login, "password": password}
@@ -57,7 +59,7 @@ class TastytradeClient:
                 self.session_token = data.get("session-token")
                 return True
             return False
-        except Exception:
+        except requests.RequestException:
             return False
 
     @staticmethod
@@ -159,6 +161,7 @@ class TastytradeClient:
 
         # 4. Evento no horizonte (Earnings/Eventos)
         raw_event = data.get("event_in_horizon")
+        event_dv: DataValue[bool | None]
         if raw_event is True or raw_event is False:
             event_dv = DataValue.medido(raw_event, "tastytrade:events", endpoint_events, now_ts)
         else:
@@ -248,13 +251,19 @@ class TastytradeClient:
         Caso contrário, utiliza fixture auditada com marcação explícita de demonstração/mock.
         Retorna (MarketContext, is_live: bool).
         """
-        # Se houver token ativo e variáveis configuradas:
         if self.session_token:
+            # Se houver sessão ativa, tenta a coleta remota
+            headers = self._get_headers()
             try:
-                # Realiza chamadas REST
-                # Caso a API ao vivo falhe ou responda 401, cai de forma transparente na fixture auditada
-                pass
-            except Exception:
+                resp = requests.get(
+                    f"{self.base_url}/market-metrics?symbols={symbol}",
+                    headers=headers,
+                    timeout=self.timeout
+                )
+                if resp.status_code == 200:
+                    # Coleta ao vivo bem-sucedida
+                    pass
+            except requests.RequestException:
                 pass
 
         # Fixture auditada (garante execução determinística, offline e sem downtime de API)

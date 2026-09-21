@@ -4,12 +4,9 @@ Garante a regra estrita da Seção 3.3 e a regra de contágio de candles.
 """
 
 import pytest
+
+from src.indicators import analyze_trend, calculate_rsi, calculate_sma
 from src.provenance import DataValue
-from src.indicators import (
-    calculate_sma,
-    calculate_rsi,
-    analyze_trend
-)
 
 
 def _generate_candles(
@@ -73,6 +70,7 @@ def test_trend_alta_confirmed() -> None:
     assert result.mm20.value is not None
     assert result.mm50.value is not None
     assert result.mm200.value is not None
+    assert current_price.value is not None
     assert current_price.value > result.mm20.value > result.mm50.value > result.mm200.value
 
 
@@ -118,6 +116,10 @@ def test_trend_baixa_confirmed() -> None:
     result = analyze_trend(current_price, candles, symbol="QQQ")
     assert result.direction.provenance == "DERIVADO"
     assert result.direction.value == "BAIXA"
+    assert result.mm20.value is not None
+    assert result.mm50.value is not None
+    assert result.mm200.value is not None
+    assert current_price.value is not None
     assert current_price.value < result.mm20.value < result.mm50.value < result.mm200.value
 
 

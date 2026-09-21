@@ -3,7 +3,10 @@ Testes Unitários do Módulo de Proveniência e Regra de Contágio.
 Garante a cerca estrutural, proibição de ESTIMADO e contágio obrigatório.
 """
 
+from typing import Any
+
 import pytest
+
 from src.provenance import DataValue, apply_contagion
 
 
@@ -35,7 +38,7 @@ def test_create_derivado_success() -> None:
 
 
 def test_create_indisponivel_success() -> None:
-    dv = DataValue.indisponivel(
+    dv: DataValue[Any] = DataValue.indisponivel(
         source="tastytrade:earnings",
         endpoint="/instruments/equities/SPY/events",
         timestamp="2026-09-21T10:00:00Z"
@@ -102,7 +105,7 @@ def test_missing_audit_fields() -> None:
 def test_contagion_rule_when_input_is_indisponivel() -> None:
     """Regra de contágio: derivado de insumo INDISPONIVEL vira INDISPONIVEL."""
     input1 = DataValue.medido(100.0, "api:price", "/price", "2026-09-21T10:00:00Z")
-    input2 = DataValue.indisponivel("api:iv", "/market-metrics", "2026-09-21T10:05:00Z")
+    input2: DataValue[float] = DataValue.indisponivel("api:iv", "/market-metrics", "2026-09-21T10:05:00Z")
 
     calc_executed = False
 
