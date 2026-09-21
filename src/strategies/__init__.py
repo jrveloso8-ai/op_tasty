@@ -3,28 +3,28 @@ Pacote de Estratégias do Screener Tastytrade.
 """
 
 from src.strategies.base import BaseStrategy
-from src.strategies.screener_engine import ScreenerEngine, get_all_strategies
 from src.strategies.implementations import (
-    BullCallSpreadStrategy,
     BearPutSpreadStrategy,
-    LongStrangleStrategy,
-    IronCondorStrategy,
+    BullCallSpreadStrategy,
     CalendarSpreadStrategy,
+    CallBackspreadStrategy,
     DiagonalSpreadStrategy,
+    IronCondorStrategy,
+    LongStrangleStrategy,
     PutRatioSpreadStrategy,
-    CallBackspreadStrategy
 )
+from src.strategies.screener_engine import ScreenerEngine, get_all_strategies
 
 __all__ = [
     "BaseStrategy",
-    "ScreenerEngine",
-    "get_all_strategies",
-    "BullCallSpreadStrategy",
     "BearPutSpreadStrategy",
-    "LongStrangleStrategy",
-    "IronCondorStrategy",
+    "BullCallSpreadStrategy",
     "CalendarSpreadStrategy",
+    "CallBackspreadStrategy",
     "DiagonalSpreadStrategy",
+    "IronCondorStrategy",
+    "LongStrangleStrategy",
     "PutRatioSpreadStrategy",
-    "CallBackspreadStrategy"
+    "ScreenerEngine",
+    "get_all_strategies"
 ]

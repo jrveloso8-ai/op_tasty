@@ -37,3 +37,5 @@ wheels/
 # Node / JS
 node_modules/
 npm-debug.log*
+
+.claude/

@@ -10,8 +10,11 @@ Implementa a regra estrita da Seção 5.1:
 """
 
 from __future__ import annotations
+
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Any, Literal, Optional, Sequence
+from typing import Any, Literal
+
 from src.provenance import DataValue, current_iso_timestamp
 
 LegAction = Literal["BUY", "SELL"]
@@ -33,11 +36,11 @@ class OptionLeg:
     expiration: str
     dte: int
     delta: DataValue[float]
-    gamma: Optional[DataValue[float]] = None
-    theta: Optional[DataValue[float]] = None
-    open_interest: Optional[DataValue[int]] = None
-    volume: Optional[DataValue[int]] = None
-    iv: Optional[DataValue[float]] = None
+    gamma: DataValue[float] | None = None
+    theta: DataValue[float] | None = None
+    open_interest: DataValue[int] | None = None
+    volume: DataValue[int] | None = None
+    iv: DataValue[float] | None = None
 
 
 @dataclass(frozen=True)

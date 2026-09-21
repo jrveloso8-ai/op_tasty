@@ -3,18 +3,20 @@ Motor de Varredura (Screener Engine) — Executa as 8 Estratégias sobre o Unive
 """
 
 from __future__ import annotations
-from typing import Sequence
+
+from collections.abc import Sequence
+
 from src.models import MarketContext, ScreeningResult
 from src.strategies.base import BaseStrategy
 from src.strategies.implementations import (
-    BullCallSpreadStrategy,
     BearPutSpreadStrategy,
-    LongStrangleStrategy,
-    IronCondorStrategy,
+    BullCallSpreadStrategy,
     CalendarSpreadStrategy,
+    CallBackspreadStrategy,
     DiagonalSpreadStrategy,
+    IronCondorStrategy,
+    LongStrangleStrategy,
     PutRatioSpreadStrategy,
-    CallBackspreadStrategy
 )
 
 

@@ -4,12 +4,13 @@ Cumpre integralmente a Seção 4 da Especificação Técnica.
 """
 
 from __future__ import annotations
+
 from dataclasses import replace
-from typing import Optional, Sequence
+
 from src.models import MarketContext, ScreeningResult
-from src.provenance import DataValue, current_iso_timestamp
 from src.pricing import OptionLeg, calculate_conservative_pricing
-from src.strategies.base import BaseStrategy, find_option_by_delta, find_atm_option
+from src.provenance import current_iso_timestamp
+from src.strategies.base import BaseStrategy, find_atm_option, find_option_by_delta
 
 
 class BullCallSpreadStrategy(BaseStrategy):
@@ -506,8 +507,8 @@ class DiagonalSpreadStrategy(BaseStrategy):
         )
 
         has_long_leaps = False
-        long_leg: Optional[OptionLeg] = None
-        short_leg: Optional[OptionLeg] = None
+        long_leg: OptionLeg | None = None
+        short_leg: OptionLeg | None = None
 
         if len(all_exps) >= 2:
             longest_exp = all_exps[-1]

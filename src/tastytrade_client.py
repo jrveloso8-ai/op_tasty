@@ -1,27 +1,34 @@
 """
-Cliente da API da Tastytrade com Suporte a Execução ao Vivo e Fixtures Auditadas.
+Cliente da API da Tastytrade com Suporte a Conexão ao Vivo (OAuth2 + DXLink) e Fixtures Auditadas.
 Implementa:
-  - Autenticação e requisições à API Tastytrade (/sessions, /market-metrics, /option-chains)
+  - Autenticação OAuth2 via Tastytrade API (CLIENT_SECRET + REFRESH_TOKEN)
+  - Coleta ao vivo de Market Metrics (IV Rank, IV Percentile, Earnings)
+  - Coleta ao vivo de Cotação Spot, Gregas e Cadeias de Opções via DXLinkStreamer
+  - Coleta ao vivo de 200+ Candles Diários para MM20, MM50, MM200 e RSI(14)
   - Cálculo de IV ATM ponderada por proximidade do spot para cada vencimento (Seção 3.2)
   - Formulação de term structure (curva a termo)
-  - Extração de 200 candles para análise de tendência (Seção 3.3)
-  - Tratamento estrito de eventos/earnings (Seção 3.4)
-  - Carregador de fixtures auditadas para testes determinísticos sem depender de conexão externa
+  - Fallback transparente e auditado para fixtures caso credenciais não estejam configuradas
 """
 
 from __future__ import annotations
 
+import asyncio
 import json
+import os
 from collections.abc import Sequence
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any
+from typing import Literal
 
-import requests
+from dotenv import load_dotenv
 
 from src.indicators import analyze_trend
 from src.models import MarketContext
 from src.pricing import OptionLeg
 from src.provenance import DataValue, current_iso_timestamp
+
+# Carrega variáveis do arquivo .env se presente
+load_dotenv()
 
 
 class TastytradeClient:
@@ -38,29 +45,13 @@ class TastytradeClient:
         self.session_token = session_token
         self.timeout = timeout
         self.fixtures_dir = fixtures_dir or (Path(__file__).parent.parent / "fixtures")
+        self.client_secret = os.getenv("CLIENT_SECRET")
+        self.refresh_token = os.getenv("REFRESH_TOKEN")
 
-    def _get_headers(self) -> dict[str, str]:
-        headers = {"Content-Type": "application/json", "Accept": "application/json"}
-        if self.session_token:
-            headers["Authorization"] = self.session_token
-        return headers
-
-    def authenticate(self, login: str, password: str, remember_token: str | None = None) -> bool:
-        """Autentica na Tastytrade e armazena o token de sessão."""
-        url = f"{self.base_url}/sessions"
-        payload: dict[str, Any] = {"login": login, "password": password}
-        if remember_token:
-            payload["remember-token"] = remember_token
-
-        try:
-            resp = requests.post(url, json=payload, timeout=self.timeout)
-            if resp.status_code == 201:
-                data = resp.json().get("data", {})
-                self.session_token = data.get("session-token")
-                return True
-            return False
-        except requests.RequestException:
-            return False
+    @property
+    def has_live_credentials(self) -> bool:
+        """Verifica se as credenciais OAuth2 estão disponíveis no ambiente."""
+        return bool(self.client_secret and self.refresh_token)
 
     @staticmethod
     def calculate_atm_weighted_iv(
@@ -74,13 +65,11 @@ class TastytradeClient:
         Calcula a média de IV ponderada pela proximidade do strike em relação ao spot (ATM):
           peso_i = 1.0 / (|strike_i - spot_price| + 1.0)
           IV_ATM = sum(peso_i * IV_i) / sum(peso_i)
-        Considera apenas opções com IV medida disponível e strike dentro de +-10% do spot.
-        Se nenhum strike tiver IV válida, retorna INDISPONIVEL.
         """
         valid_legs = [
             leg for leg in legs
             if leg.iv and leg.iv.is_available and leg.iv.value is not None and leg.iv.value > 0
-            and abs(leg.strike - spot_price) <= (spot_price * 0.10)
+            and abs(leg.strike - spot_price) <= (spot_price * 0.15)
         ]
 
         if not valid_legs:
@@ -147,25 +136,20 @@ class TastytradeClient:
         # 3. Candles e Análise de Tendência
         raw_candles = data.get("daily_closes", [])
         candle_dvs: list[DataValue[float]] = []
-        for i, c in enumerate(raw_candles):
+        for c in raw_candles:
             if c is not None and c > 0:
-                candle_dvs.append(
-                    DataValue.medido(float(c), "tastytrade:candle", endpoint_candles, now_ts)
-                )
+                candle_dvs.append(DataValue.medido(float(c), "tastytrade:candle", endpoint_candles, now_ts))
             else:
-                candle_dvs.append(
-                    DataValue.indisponivel("tastytrade:candle", endpoint_candles, now_ts)
-                )
+                candle_dvs.append(DataValue.indisponivel("tastytrade:candle", endpoint_candles, now_ts))
 
         trend = analyze_trend(spot_dv, candle_dvs, symbol=symbol)
 
-        # 4. Evento no horizonte (Earnings/Eventos)
+        # 4. Evento no horizonte
         raw_event = data.get("event_in_horizon")
         event_dv: DataValue[bool | None]
         if raw_event is True or raw_event is False:
             event_dv = DataValue.medido(raw_event, "tastytrade:events", endpoint_events, now_ts)
         else:
-            # Não disponível na API -> marca INDISPONIVEL conforme Seção 3.4
             event_dv = DataValue.indisponivel("tastytrade:events", endpoint_events, now_ts)
 
         # 5. Cadeia de opções
@@ -221,7 +205,7 @@ class TastytradeClient:
                 )
             chains_by_exp[exp] = legs_list
 
-        # 6. Curva a Termo (ATM Weighted IV por vencimento)
+        # 6. Curva a Termo
         term_map: dict[str, DataValue[float]] = {}
         if spot_dv.is_available and spot_dv.value is not None:
             for exp, exp_legs in chains_by_exp.items():
@@ -245,27 +229,259 @@ class TastytradeClient:
             timestamp=now_ts
         )
 
-    def fetch_market_context_live_or_fixture(self, symbol: str) -> tuple[MarketContext, bool]:
-        """
-        Tenta buscar dados ao vivo se credenciais existirem.
-        Caso contrário, utiliza fixture auditada com marcação explícita de demonstração/mock.
-        Retorna (MarketContext, is_live: bool).
-        """
-        if self.session_token:
-            # Se houver sessão ativa, tenta a coleta remota
-            headers = self._get_headers()
+    async def _fetch_live_context_async(self, symbol: str) -> MarketContext:
+        """Coleta dados 100% ao vivo via API da Tastytrade e DXLink."""
+        from tastytrade import DXLinkStreamer, Session
+        from tastytrade.dxfeed import Candle, Greeks, Quote
+        from tastytrade.instruments import get_option_chain
+        from tastytrade.metrics import get_market_metrics
+
+        now_ts = current_iso_timestamp()
+        endpoint_metrics = f"/market-metrics?symbols={symbol}"
+        endpoint_chains = f"/option-chains/{symbol}/nested"
+        endpoint_candles = f"dxlink:candle:{symbol}"
+
+        # 1. Cria Sessão Oficial Tastytrade
+        session = Session(
+            provider_secret=self.client_secret,
+            refresh_token=self.refresh_token
+        )
+
+        # 2. Coleta Market Metrics
+        metrics_list = await get_market_metrics(session, [symbol])
+        metric = metrics_list[0] if metrics_list else None
+
+        ivr_val = float(metric.implied_volatility_index_rank) * 100.0 if (metric and metric.implied_volatility_index_rank is not None) else None
+        ivp_val = float(metric.implied_volatility_percentile) * 100.0 if (metric and metric.implied_volatility_percentile is not None) else None
+
+        ivr_dv = (
+            DataValue.medido(round(ivr_val, 2), "tastytrade:market-metrics", endpoint_metrics, now_ts)
+            if ivr_val is not None
+            else DataValue.indisponivel("tastytrade:market-metrics", endpoint_metrics, now_ts)
+        )
+        ivp_dv = (
+            DataValue.medido(round(ivp_val, 2), "tastytrade:market-metrics", endpoint_metrics, now_ts)
+            if ivp_val is not None
+            else DataValue.indisponivel("tastytrade:market-metrics", endpoint_metrics, now_ts)
+        )
+
+        # Evento no horizonte
+        event_dv: DataValue[bool | None]
+        earnings_obj = getattr(metric, "earnings", None)
+        has_visible_earnings = False
+        if earnings_obj is not None and (
+            (hasattr(earnings_obj, "visible") and bool(earnings_obj.visible))
+            or (hasattr(earnings_obj, "expected_report_date") and bool(earnings_obj.expected_report_date))
+        ):
+            has_visible_earnings = True
+
+        if has_visible_earnings:
+            event_dv = DataValue.medido(True, "tastytrade:earnings", endpoint_metrics, now_ts)
+        elif earnings_obj is not None:
+            event_dv = DataValue.medido(False, "tastytrade:earnings", endpoint_metrics, now_ts)
+        else:
+            event_dv = DataValue.indisponivel("tastytrade:earnings", endpoint_metrics, now_ts)
+
+        # 3. Coleta Cadeia de Opções Bruta
+        raw_chain = await get_option_chain(session, symbol)
+        today = datetime.now(timezone.utc).date()
+
+        # Seleciona vencimentos relevantes (20 a 70 dias para spreads, e > 90 para LEAPS se houver)
+        all_exps = sorted(raw_chain.keys())
+        target_exps = [e for e in all_exps if 25 <= (e - today).days <= 65]
+        if not target_exps and all_exps:
+            target_exps = all_exps[:2]
+        # Adiciona o mais longo para PMCC
+        if all_exps and all_exps[-1] not in target_exps:
+            target_exps.append(all_exps[-1])
+
+        # 4. Streamer DXLink para Cotação Spot, Candles Históricos e Gregas
+        spot_price_val: float | None = None
+        candle_closes: list[float] = []
+        quotes_map: dict[str, tuple[float, float]] = {}  # streamer_sym -> (bid, ask)
+        greeks_map: dict[str, tuple[float, float, float, float]] = {}  # streamer_sym -> (delta, gamma, theta, iv)
+
+        async with DXLinkStreamer(session) as streamer:
+            # Assina cotação Spot
+            await streamer.subscribe(Quote, [symbol])
             try:
-                resp = requests.get(
-                    f"{self.base_url}/market-metrics?symbols={symbol}",
-                    headers=headers,
-                    timeout=self.timeout
-                )
-                if resp.status_code == 200:
-                    # Coleta ao vivo bem-sucedida
-                    pass
-            except requests.RequestException:
+                q_spot = await asyncio.wait_for(streamer.get_event(Quote), timeout=3.0)
+                b = float(q_spot.bid_price or 0)
+                a = float(q_spot.ask_price or 0)
+                spot_price_val = (b + a) / 2.0 if (b > 0 and a > 0) else (b or a)
+            except (asyncio.TimeoutError, Exception):  # noqa: BLE001, S110
                 pass
 
-        # Fixture auditada (garante execução determinística, offline e sem downtime de API)
+            # Assina Candles Diários (últimos 380 dias para garantir 200+ candles de pregão)
+            start_candles = datetime.now(timezone.utc) - timedelta(days=380)
+            await streamer.subscribe_candle([symbol], "1d", start_candles)
+            try:
+                while len(candle_closes) < 260:
+                    c = await asyncio.wait_for(streamer.get_event(Candle), timeout=1.5)
+                    if c.close and float(c.close) > 0:
+                        candle_closes.append(float(c.close))
+            except (asyncio.TimeoutError, Exception):  # noqa: BLE001, S110
+                pass
+
+            if not spot_price_val and candle_closes:
+                spot_price_val = candle_closes[-1]
+
+            # Seleciona opções próximas ao spot (+-15%) para cada vencimento selecionado
+            selected_options = []
+            for exp in target_exps:
+                exp_options = raw_chain[exp]
+                if spot_price_val:
+                    filtered = [o for o in exp_options if abs(float(o.strike_price) - spot_price_val) <= (spot_price_val * 0.15)]
+                    selected_options.extend(filtered if filtered else exp_options[:20])
+                else:
+                    selected_options.extend(exp_options[:20])
+
+            streamer_syms = [o.streamer_symbol for o in selected_options]
+
+            # Assina Quotes e Greeks das opções
+            if streamer_syms:
+                await streamer.subscribe(Quote, streamer_syms)
+                await streamer.subscribe(Greeks, streamer_syms)
+
+                start_loop = asyncio.get_event_loop().time()
+                while asyncio.get_event_loop().time() - start_loop < 3.5:
+                    try:
+                        while True:
+                            q_evt = streamer.get_event_nowait(Quote)
+                            if not q_evt:
+                                break
+                            quotes_map[q_evt.event_symbol] = (float(q_evt.bid_price or 0), float(q_evt.ask_price or 0))
+                    except (asyncio.TimeoutError, Exception):  # noqa: BLE001, S110
+                        pass
+
+                    try:
+                        while True:
+                            g_evt = streamer.get_event_nowait(Greeks)
+                            if not g_evt:
+                                break
+                            greeks_map[g_evt.event_symbol] = (
+                                float(g_evt.delta or 0),
+                                float(g_evt.gamma or 0),
+                                float(g_evt.theta or 0),
+                                float(g_evt.volatility or 0) * 100.0 if g_evt.volatility else 0.0
+                            )
+                    except (asyncio.TimeoutError, Exception):  # noqa: BLE001, S110
+                        pass
+                    await asyncio.sleep(0.04)
+
+        # 5. Constrói DataValues dos Candles e Tendência
+        candle_dvs: list[DataValue[float]] = [
+            DataValue.medido(c_val, "tastytrade:candle", endpoint_candles, now_ts)
+            for c_val in candle_closes
+        ]
+
+        spot_dv = (
+            DataValue.medido(round(spot_price_val, 2), "tastytrade:quote", endpoint_metrics, now_ts)
+            if spot_price_val and spot_price_val > 0
+            else DataValue.indisponivel("tastytrade:quote", endpoint_metrics, now_ts)
+        )
+
+        trend = analyze_trend(spot_dv, candle_dvs, symbol=symbol)
+
+        # 6. Constrói Cadeias com Dados Medidos
+        chains_by_exp: dict[str, list[OptionLeg]] = {}
+        for exp in target_exps:
+            exp_str = exp.strftime("%Y-%m-%d")
+            dte = (exp - today).days
+            legs_for_exp: list[OptionLeg] = []
+
+            for opt in raw_chain[exp]:
+                st_sym = opt.streamer_symbol
+                if st_sym not in streamer_syms:
+                    continue
+
+                strike_f = float(opt.strike_price)
+                ep_strike = f"{endpoint_chains}/{exp_str}/{strike_f}"
+                opt_type: Literal["CALL", "PUT"] = "CALL" if opt.option_type.value == "C" else "PUT"
+
+                q_data = quotes_map.get(st_sym, (0.0, 0.0))
+                g_data = greeks_map.get(st_sym, (0.0, 0.0, 0.0, 0.0))
+
+                bid_val, ask_val = q_data
+                delta_val, gamma_val, theta_val, iv_val = g_data
+
+                bid_dv = (
+                    DataValue.medido(round(bid_val, 2), "tastytrade:quote", ep_strike, now_ts)
+                    if bid_val > 0
+                    else DataValue.indisponivel("tastytrade:quote", ep_strike, now_ts)
+                )
+                ask_dv = (
+                    DataValue.medido(round(ask_val, 2), "tastytrade:quote", ep_strike, now_ts)
+                    if ask_val > 0
+                    else DataValue.indisponivel("tastytrade:quote", ep_strike, now_ts)
+                )
+                delta_dv = (
+                    DataValue.medido(round(delta_val, 3), "tastytrade:greeks", ep_strike, now_ts)
+                    if delta_val != 0.0
+                    else DataValue.indisponivel("tastytrade:greeks", ep_strike, now_ts)
+                )
+                iv_dv = (
+                    DataValue.medido(round(iv_val, 2), "tastytrade:greeks", ep_strike, now_ts)
+                    if iv_val > 0
+                    else DataValue.indisponivel("tastytrade:greeks", ep_strike, now_ts)
+                )
+
+                legs_for_exp.append(
+                    OptionLeg(
+                        symbol=opt.symbol,
+                        strike=strike_f,
+                        option_type=opt_type,
+                        action="BUY",
+                        ratio=1,
+                        bid=bid_dv,
+                        ask=ask_dv,
+                        expiration=exp_str,
+                        dte=dte,
+                        delta=delta_dv,
+                        gamma=DataValue.medido(round(gamma_val, 4), "tastytrade:greeks", ep_strike, now_ts) if gamma_val else None,
+                        theta=DataValue.medido(round(theta_val, 4), "tastytrade:greeks", ep_strike, now_ts) if theta_val else None,
+                        iv=iv_dv
+                    )
+                )
+            chains_by_exp[exp_str] = legs_for_exp
+
+        # 7. Curva a Termo
+        term_map: dict[str, DataValue[float]] = {}
+        if spot_dv.is_available and spot_dv.value is not None:
+            for exp_str, exp_legs in chains_by_exp.items():
+                term_iv = self.calculate_atm_weighted_iv(
+                    exp_legs,
+                    spot_price=spot_dv.value,
+                    endpoint=f"{endpoint_chains}/{exp_str}",
+                    timestamp=now_ts
+                )
+                term_map[exp_str] = term_iv
+
+        return MarketContext(
+            symbol=symbol,
+            spot_price=spot_dv,
+            iv_rank=ivr_dv,
+            iv_percentile=ivp_dv,
+            trend=trend,
+            event_in_horizon=event_dv,
+            chains_by_expiration=chains_by_exp,
+            term_structure_atm_iv=term_map,
+            timestamp=now_ts
+        )
+
+    def fetch_market_context_live_or_fixture(self, symbol: str) -> tuple[MarketContext, bool]:
+        """
+        Executa a coleta ao vivo se credenciais existirem no .env.
+        Se falhar ou não houver credenciais, utiliza a fixture auditada.
+        Retorna (MarketContext, is_live: bool).
+        """
+        if self.has_live_credentials:
+            try:
+                print(f"[TASTYTRADE LIVE API] Coletando dados reais em tempo real para {symbol}...")
+                ctx = asyncio.run(self._fetch_live_context_async(symbol))
+                return ctx, True
+            except Exception as e:  # noqa: BLE001
+                print(f"[AVISO] Falha ao coletar ao vivo para {symbol} ({e}). Utilizando fixture auditada.")
+
         ctx = self.fetch_market_context_from_fixture(symbol)
         return ctx, False

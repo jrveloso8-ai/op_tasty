@@ -3,10 +3,12 @@ Definição Base e Utilitários de Estratégias de Opções.
 """
 
 from __future__ import annotations
+
 from abc import ABC, abstractmethod
-from typing import Optional, Sequence
+from collections.abc import Sequence
+
 from src.models import MarketContext, ScreeningResult
-from src.pricing import OptionLeg, calculate_conservative_pricing
+from src.pricing import OptionLeg
 
 
 class BaseStrategy(ABC):
@@ -25,7 +27,6 @@ class BaseStrategy(ABC):
     @abstractmethod
     def evaluate(self, ctx: MarketContext) -> ScreeningResult:
         """Avalia se o ativo cumpre todos os critérios obrigatórios da estratégia."""
-        pass
 
 
 def find_option_by_delta(
@@ -33,7 +34,7 @@ def find_option_by_delta(
     target_delta: float,
     opt_type: str,
     tolerance: float = 0.15
-) -> Optional[OptionLeg]:
+) -> OptionLeg | None:
     """Busca a opção cujo delta está mais próximo do alvo dentro de uma tolerância."""
     candidates = [
         leg for leg in legs
@@ -47,7 +48,7 @@ def find_option_by_delta(
     return min(candidates, key=lambda l: abs((l.delta.value or 0.0) - target_delta))
 
 
-def find_atm_option(legs: Sequence[OptionLeg], opt_type: str, spot_price: float) -> Optional[OptionLeg]:
+def find_atm_option(legs: Sequence[OptionLeg], opt_type: str, spot_price: float) -> OptionLeg | None:
     """Busca a opção mais próxima do preço spot (ATM)."""
     candidates = [leg for leg in legs if leg.option_type == opt_type]
     if not candidates:

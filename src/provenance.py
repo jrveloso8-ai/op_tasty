@@ -6,9 +6,11 @@ PROIBIÇÃO ESTRITA: O tipo ESTIMADO não existe e é rejeitado em tempo de exec
 """
 
 from __future__ import annotations
-from dataclasses import dataclass, asdict
+
+from collections.abc import Callable
+from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any, Callable, Generic, Literal, Optional, Sequence, TypeVar
+from typing import Any, Generic, Literal, TypeVar
 
 T = TypeVar("T")
 
@@ -26,7 +28,7 @@ class DataValue(Generic[T]):
     Invólucro estrutural para todo dado numérico ou categórico do sistema.
     Garante rastreabilidade ao endpoint e timestamp, e proíbe fabricação.
     """
-    value: Optional[T]
+    value: T | None
     provenance: ProvenanceType
     source: str
     endpoint: str
@@ -75,7 +77,7 @@ class DataValue(Generic[T]):
         value: T,
         source: str,
         endpoint: str,
-        timestamp: Optional[str] = None
+        timestamp: str | None = None
     ) -> DataValue[T]:
         """Cria um registro MEDIDO direto da API."""
         return cls(
@@ -92,7 +94,7 @@ class DataValue(Generic[T]):
         value: T,
         source: str,
         endpoint: str,
-        timestamp: Optional[str] = None
+        timestamp: str | None = None
     ) -> DataValue[T]:
         """Cria um registro DERIVADO calculado a partir de insumos 100% MEDIDOS."""
         return cls(
@@ -108,7 +110,7 @@ class DataValue(Generic[T]):
         cls,
         source: str,
         endpoint: str,
-        timestamp: Optional[str] = None
+        timestamp: str | None = None
     ) -> DataValue[T]:
         """Cria um registro INDISPONIVEL quando a fonte falha ou omite o dado."""
         return cls(
@@ -150,7 +152,7 @@ def apply_contagion(
     calc_fn: Callable[..., T],
     *inputs: DataValue[Any],
     source: str,
-    custom_endpoint: Optional[str] = None
+    custom_endpoint: str | None = None
 ) -> DataValue[T]:
     """
     Executa um cálculo aplicando rigorosamente a REGRA DE CONTÁGIO:

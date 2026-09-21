@@ -9,8 +9,11 @@ Se menos de 200 candles disponíveis ou se houver dado incompleto: DADO INDISPON
 """
 
 from __future__ import annotations
+
+from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Literal, Optional, Sequence
+from typing import Literal
+
 from src.provenance import DataValue, current_iso_timestamp
 
 DirectionType = Literal["ALTA", "BAIXA", "NEUTRO"]

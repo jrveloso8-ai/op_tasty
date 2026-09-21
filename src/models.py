@@ -4,11 +4,13 @@ Representa ativos, contexto de mercado e resultados de screening por oportunidad
 """
 
 from __future__ import annotations
+
 from dataclasses import dataclass, field
-from typing import Any, Literal, Optional
-from src.provenance import DataValue
+from typing import Any, Literal
+
 from src.indicators import TrendAnalysis
 from src.pricing import OptionLeg, StructurePricing
+from src.provenance import DataValue
 
 OpportunityStatus = Literal["APROVADO", "CONDICIONAL", "REJEITADO"]
 
@@ -21,7 +23,7 @@ class MarketContext:
     iv_rank: DataValue[float]
     iv_percentile: DataValue[float]
     trend: TrendAnalysis
-    event_in_horizon: DataValue[Optional[bool]]
+    event_in_horizon: DataValue[bool | None]
     chains_by_expiration: dict[str, list[OptionLeg]] = field(default_factory=dict)
     term_structure_atm_iv: dict[str, DataValue[float]] = field(default_factory=dict)
     timestamp: str = ""
@@ -44,7 +46,7 @@ class ScreeningResult:
     status: OpportunityStatus
     mandatory_criteria: dict[str, Any]
     rejection_reasons: list[str] = field(default_factory=list)
-    pricing: Optional[StructurePricing] = None
+    pricing: StructurePricing | None = None
     suggested_legs: list[OptionLeg] = field(default_factory=list)
     timestamp: str = ""
     notes: str = ""
