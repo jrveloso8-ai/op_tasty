@@ -1,0 +1,4202 @@
+{
+  "generated_at": "2026-09-21T11:04:33.970909+00:00",
+  "is_live_data": false,
+  "universe": [
+    "SPY",
+    "AAPL",
+    "QQQ"
+  ],
+  "total_screened": 24,
+  "total_opportunities": 8,
+  "contexts": [
+    {
+      "symbol": "SPY",
+      "spot_price": {
+        "value": 514.0,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:quote",
+        "endpoint": "/market-metrics?symbols=SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "iv_rank": {
+        "value": 25.0,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:market-metrics",
+        "endpoint": "/market-metrics?symbols=SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "iv_percentile": {
+        "value": 27.5,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:market-metrics",
+        "endpoint": "/market-metrics?symbols=SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "direction": {
+        "value": "ALTA",
+        "provenance": "DERIVADO",
+        "source": "calc:trend_decision",
+        "endpoint": "/market-data/candles/SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm20": {
+        "value": 511.75,
+        "provenance": "DERIVADO",
+        "source": "calc:sma20",
+        "endpoint": "/market-data/candles/SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm50": {
+        "value": 509.5,
+        "provenance": "DERIVADO",
+        "source": "calc:sma50",
+        "endpoint": "/market-data/candles/SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm200": {
+        "value": 498.25,
+        "provenance": "DERIVADO",
+        "source": "calc:sma200",
+        "endpoint": "/market-data/candles/SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "rsi14": {
+        "value": 69.8925,
+        "provenance": "DERIVADO",
+        "source": "calc:rsi14",
+        "endpoint": "/market-data/candles/SPY",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "event_in_horizon": {
+        "value": null,
+        "provenance": "INDISPONIVEL",
+        "source": "tastytrade:events",
+        "endpoint": "/instruments/equities/SPY/events",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "term_structure_atm_iv": {
+        "2026-10-16": {
+          "value": 38.027,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "2026-11-20": {
+          "value": 29.9474,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/SPY/nested/2026-11-20",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "2027-01-15": {
+          "value": null,
+          "provenance": "INDISPONIVEL",
+          "source": "calc:atm_weighted_iv",
+          "endpoint": "/option-chains/SPY/nested/2027-01-15",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "chains": {
+        "2026-10-16": [
+          {
+            "symbol": "SPY   261016C00480000",
+            "strike": 480.0,
+            "type": "CALL",
+            "bid": {
+              "value": 36.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 36.6,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 36.4,
+            "iv": {
+              "value": 39.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.88,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.008,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.04,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 15400,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 3200,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/480.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "SPY   261016C00500000",
+            "strike": 500.0,
+            "type": "CALL",
+            "bid": {
+              "value": 18.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 18.8,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 18.65,
+            "iv": {
+              "value": 38.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.72,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.012,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.06,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 22100,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 5400,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "SPY   261016C00515000",
+            "strike": 515.0,
+            "type": "CALL",
+            "bid": {
+              "value": 7.4,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 7.6,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 7.5,
+            "iv": {
+              "value": 38.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.018,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.09,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 35400,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 12800,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "SPY   261016C00525000",
+            "strike": 525.0,
+            "type": "CALL",
+            "bid": {
+              "value": 2.8,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 2.95,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 2.88,
+            "iv": {
+              "value": 37.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.25,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.014,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.07,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 41200,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 14200,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "SPY   261016P00500000",
+            "strike": 500.0,
+            "type": "PUT",
+            "bid": {
+              "value": 3.1,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 3.25,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 3.17,
+            "iv": {
+              "value": 38.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.25,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.013,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.07,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 38000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 11500,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "SPY   261016P00515000",
+            "strike": 515.0,
+            "type": "PUT",
+            "bid": {
+              "value": 7.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 7.45,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 7.33,
+            "iv": {
+              "value": 38.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.018,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.09,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 29000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 9800,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          }
+        ],
+        "2026-11-20": [
+          {
+            "symbol": "SPY   261120C00515000",
+            "strike": 515.0,
+            "type": "CALL",
+            "bid": {
+              "value": 11.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 11.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 11.35,
+            "iv": {
+              "value": 30.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.52,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.014,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.07,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 18200,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 4100,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 70
+          },
+          {
+            "symbol": "SPY   261120C00530000",
+            "strike": 530.0,
+            "type": "CALL",
+            "bid": {
+              "value": 4.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 4.7,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 4.6,
+            "iv": {
+              "value": 29.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.28,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.011,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.05,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 24000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 5600,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2026-11-20/530.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 70
+          }
+        ],
+        "2027-01-15": [
+          {
+            "symbol": "SPY   270115C00450000",
+            "strike": 450.0,
+            "type": "CALL",
+            "bid": {
+              "value": 78.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 79.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 78.75,
+            "iv": {
+              "value": 28.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.76,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.005,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.03,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 12000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 1800,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 126
+          }
+        ]
+      }
+    },
+    {
+      "symbol": "AAPL",
+      "spot_price": {
+        "value": 222.2,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:quote",
+        "endpoint": "/market-metrics?symbols=AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "iv_rank": {
+        "value": 62.0,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:market-metrics",
+        "endpoint": "/market-metrics?symbols=AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "iv_percentile": {
+        "value": 65.0,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:market-metrics",
+        "endpoint": "/market-metrics?symbols=AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "direction": {
+        "value": "NEUTRO",
+        "provenance": "DERIVADO",
+        "source": "calc:trend_decision",
+        "endpoint": "/market-data/candles/AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm20": {
+        "value": 222.895,
+        "provenance": "DERIVADO",
+        "source": "calc:sma20",
+        "endpoint": "/market-data/candles/AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm50": {
+        "value": 222.7292,
+        "provenance": "DERIVADO",
+        "source": "calc:sma50",
+        "endpoint": "/market-data/candles/AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm200": {
+        "value": 221.995,
+        "provenance": "DERIVADO",
+        "source": "calc:sma200",
+        "endpoint": "/market-data/candles/AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "rsi14": {
+        "value": 46.9314,
+        "provenance": "DERIVADO",
+        "source": "calc:rsi14",
+        "endpoint": "/market-data/candles/AAPL",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "event_in_horizon": {
+        "value": false,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:events",
+        "endpoint": "/instruments/equities/AAPL/events",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "term_structure_atm_iv": {
+        "2026-10-16": {
+          "value": 34.0277,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "2026-11-20": {
+          "value": 36.0,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/AAPL/nested/2026-11-20",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "chains": {
+        "2026-10-16": [
+          {
+            "symbol": "AAPL  261016C00220000",
+            "strike": 220.0,
+            "type": "CALL",
+            "bid": {
+              "value": 6.8,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 7.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 6.9,
+            "iv": {
+              "value": 34.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.52,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.025,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.08,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 28000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 8200,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "AAPL  261016C00230000",
+            "strike": 230.0,
+            "type": "CALL",
+            "bid": {
+              "value": 2.1,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 2.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 2.15,
+            "iv": {
+              "value": 33.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.18,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.018,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.06,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 45000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 14000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "AAPL  261016C00235000",
+            "strike": 235.0,
+            "type": "CALL",
+            "bid": {
+              "value": 0.9,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 1.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 0.95,
+            "iv": {
+              "value": 33.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.09,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.01,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.04,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 32000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 9500,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "AAPL  261016P00220000",
+            "strike": 220.0,
+            "type": "PUT",
+            "bid": {
+              "value": 6.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 6.7,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 6.6,
+            "iv": {
+              "value": 34.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.48,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.024,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.08,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 26000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 7900,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "AAPL  261016P00210000",
+            "strike": 210.0,
+            "type": "PUT",
+            "bid": {
+              "value": 2.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 2.35,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 2.28,
+            "iv": {
+              "value": 34.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.18,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.017,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.06,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 52000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 16500,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "AAPL  261016P00205000",
+            "strike": 205.0,
+            "type": "PUT",
+            "bid": {
+              "value": 1.05,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 1.15,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 1.1,
+            "iv": {
+              "value": 35.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.1,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.011,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.04,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 38000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 11000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          }
+        ],
+        "2026-11-20": [
+          {
+            "symbol": "AAPL  261120C00220000",
+            "strike": 220.0,
+            "type": "CALL",
+            "bid": {
+              "value": 9.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 9.8,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 9.65,
+            "iv": {
+              "value": 36.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.53,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.018,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.06,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 19000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 4200,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/AAPL/nested/2026-11-20/220.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 70
+          }
+        ]
+      }
+    },
+    {
+      "symbol": "QQQ",
+      "spot_price": {
+        "value": 486.0,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:quote",
+        "endpoint": "/market-metrics?symbols=QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "iv_rank": {
+        "value": 35.0,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:market-metrics",
+        "endpoint": "/market-metrics?symbols=QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "iv_percentile": {
+        "value": 38.0,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:market-metrics",
+        "endpoint": "/market-metrics?symbols=QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "direction": {
+        "value": "BAIXA",
+        "provenance": "DERIVADO",
+        "source": "calc:trend_decision",
+        "endpoint": "/market-data/candles/QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm20": {
+        "value": 488.25,
+        "provenance": "DERIVADO",
+        "source": "calc:sma20",
+        "endpoint": "/market-data/candles/QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm50": {
+        "value": 490.5,
+        "provenance": "DERIVADO",
+        "source": "calc:sma50",
+        "endpoint": "/market-data/candles/QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "mm200": {
+        "value": 501.75,
+        "provenance": "DERIVADO",
+        "source": "calc:sma200",
+        "endpoint": "/market-data/candles/QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "rsi14": {
+        "value": 30.1075,
+        "provenance": "DERIVADO",
+        "source": "calc:rsi14",
+        "endpoint": "/market-data/candles/QQQ",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "event_in_horizon": {
+        "value": false,
+        "provenance": "MEDIDO",
+        "source": "tastytrade:events",
+        "endpoint": "/instruments/equities/QQQ/events",
+        "timestamp": "2026-09-21T10:30:00Z"
+      },
+      "term_structure_atm_iv": {
+        "2026-10-16": {
+          "value": 30.7448,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/QQQ/nested/2026-10-16",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "2026-11-20": {
+          "value": 32.0,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/QQQ/nested/2026-11-20",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "chains": {
+        "2026-10-16": [
+          {
+            "symbol": "QQQ   261016P00485000",
+            "strike": 485.0,
+            "type": "PUT",
+            "bid": {
+              "value": 10.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 10.8,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 10.65,
+            "iv": {
+              "value": 31.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.015,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.09,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 29000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 8400,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "QQQ   261016P00470000",
+            "strike": 470.0,
+            "type": "PUT",
+            "bid": {
+              "value": 4.1,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 4.3,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 4.2,
+            "iv": {
+              "value": 31.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.25,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.012,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.07,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 38000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 12100,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "QQQ   261016C00485000",
+            "strike": 485.0,
+            "type": "CALL",
+            "bid": {
+              "value": 10.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 10.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 10.35,
+            "iv": {
+              "value": 30.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.5,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.015,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.09,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 27000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 7600,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          },
+          {
+            "symbol": "QQQ   261016C00500000",
+            "strike": 500.0,
+            "type": "CALL",
+            "bid": {
+              "value": 3.6,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 3.8,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 3.7,
+            "iv": {
+              "value": 30.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": 0.24,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.011,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.06,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 34000,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 9200,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/QQQ/nested/2026-10-16/500.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 35
+          }
+        ],
+        "2026-11-20": [
+          {
+            "symbol": "QQQ   261120P00485000",
+            "strike": 485.0,
+            "type": "PUT",
+            "bid": {
+              "value": 14.8,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "ask": {
+              "value": 15.2,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:quote",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "mid": 15.0,
+            "iv": {
+              "value": 32.0,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "delta": {
+              "value": -0.49,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "gamma": {
+              "value": 0.011,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "theta": {
+              "value": -0.07,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:greeks",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "open_interest": {
+              "value": 17500,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:oi",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "volume": {
+              "value": 3800,
+              "provenance": "MEDIDO",
+              "source": "tastytrade:vol",
+              "endpoint": "/option-chains/QQQ/nested/2026-11-20/485.0",
+              "timestamp": "2026-09-21T10:30:00Z"
+            },
+            "dte": 70
+          }
+        ]
+      }
+    }
+  ],
+  "results": [
+    {
+      "symbol": "SPY",
+      "strategy_id": "bull_call_spread",
+      "strategy_name": "Bull Call Spread",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 25.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -4.8,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 4.8,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x SPY   261016C00515000 $515.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 7.6,
+            "cash_flow": -7.6,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.8,
+            "cash_flow": 2.8,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 7.4,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 7.6,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970168+00:00",
+      "notes": "Crit\u00e9rios obrigat\u00f3rios atendidos: Dire\u00e7\u00e3o=ALTA e IV Rank < 40."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "bear_put_spread",
+      "strategy_name": "Bear Put Spread",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 25.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 ALTA, esperado BAIXA"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970291+00:00",
+      "notes": "Rejeitado por crit\u00e9rios obrigat\u00f3rios de entrada."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "long_strangle",
+      "strategy_name": "Long Strangle",
+      "status": "CONDICIONAL",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 25.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": null,
+          "provenance": "INDISPONIVEL",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/SPY/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -6.2,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 6.2,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 2.95,
+            "cash_flow": -2.95,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x SPY   261016P00500000 $500.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 3.25,
+            "cash_flow": -3.25,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016P00500000",
+          "strike": 500.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 3.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 3.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970304+00:00",
+      "notes": "IV Rank baixo (< 30). Dado de evento no horizonte INDISPONIVEL na API \u2014 oportunidade classificada como CONDICIONAL"
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "iron_condor",
+      "strategy_name": "Iron Condor",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 25.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": null,
+          "provenance": "INDISPONIVEL",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/SPY/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "IV Rank=25.0 <= 50.0",
+        "Dire\u00e7\u00e3o \u00e9 ALTA, esperado NEUTRO"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970372+00:00",
+      "notes": "Rejeitado por crit\u00e9rios de entrada."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "calendar_spread",
+      "strategy_name": "Calendar Spread",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "short_exp": "2026-10-16",
+        "long_exp": "2026-11-20",
+        "iv_short": {
+          "value": 38.027,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_long": {
+          "value": 29.9474,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/SPY/nested/2026-11-20",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "term_structure_inverted": true
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -4.1,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-11-20/515.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 4.1,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-11-20/515.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "SELL 1x SPY   261016C00515000 $515.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 7.4,
+            "cash_flow": 7.4,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x SPY   261120C00515000 $515.0 CALL exp 2026-11-20",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 11.5,
+            "cash_flow": -11.5,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 7.4,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 7.6,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261120C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-11-20",
+          "dte": 70,
+          "delta": {
+            "value": 0.52,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 11.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 11.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970386+00:00",
+      "notes": "Term structure invertida confirmada: IV 2026-10-16 > IV 2026-11-20."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "diagonal_spread",
+      "strategy_name": "Diagonal Spread / PMCC",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "has_long_delta_70_80": true
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -76.7,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0 | /option-chains/SPY/nested/2027-01-15/450.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 76.7,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0 | /option-chains/SPY/nested/2027-01-15/450.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x SPY   270115C00450000 $450.0 CALL exp 2027-01-15",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 79.5,
+            "cash_flow": -79.5,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.8,
+            "cash_flow": 2.8,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   270115C00450000",
+          "strike": 450.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2027-01-15",
+          "dte": 126,
+          "delta": {
+            "value": 0.76,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 78.0,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 79.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970452+00:00",
+      "notes": "Crit\u00e9rios atendidos: Dire\u00e7\u00e3o ALTA e perna longa profunda no dinheiro (delta 0.70-0.80) dispon\u00edvel."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "put_ratio_spread",
+      "strategy_name": "Put Ratio Spread (1x2)",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 25.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "IV Rank=25.0 <= 50.0"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970511+00:00",
+      "notes": "Rejeitado por crit\u00e9rios de entrada de IV Rank ou dire\u00e7\u00e3o."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "call_backspread",
+      "strategy_name": "Call Backspread (1x2)",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_skew_favorable": true,
+        "used_proxy_limitation": false
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": 1.5,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 1.5,
+          "provenance": "DERIVADO",
+          "source": "calc:min_value_to_receive",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "VALOR M\u00cdNIMO A RECEBER",
+        "pricing_type": "CREDIT",
+        "details": [
+          {
+            "leg": "SELL 1x SPY   261016C00515000 $515.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 7.4,
+            "cash_flow": 7.4,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 2x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 2.95,
+            "cash_flow": -5.9,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 7.4,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 7.6,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 2,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970522+00:00",
+      "notes": "Crit\u00e9rios atendidos: Dire\u00e7\u00e3o ALTA e skew de volatilidade favor\u00e1vel."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "bull_call_spread",
+      "strategy_name": "Bull Call Spread",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 62.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 NEUTRO, esperado ALTA",
+        "IV Rank=62.0 >= 40.0"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970579+00:00",
+      "notes": "Rejeitado por crit\u00e9rios obrigat\u00f3rios de entrada."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "bear_put_spread",
+      "strategy_name": "Bear Put Spread",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 62.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 NEUTRO, esperado BAIXA",
+        "IV Rank=62.0 >= 40.0"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970590+00:00",
+      "notes": "Rejeitado por crit\u00e9rios obrigat\u00f3rios de entrada."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "long_strangle",
+      "strategy_name": "Long Strangle",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 62.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": false,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/AAPL/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "IV Rank=62.0 >= 30.0",
+        "Evento no horizonte \u00e9 FALSE (Strangle exige catalisador/evento)"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970599+00:00",
+      "notes": "Rejeitado por crit\u00e9rios obrigat\u00f3rios."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "iron_condor",
+      "strategy_name": "Iron Condor",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 62.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": false,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/AAPL/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": 2.15,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0 | /option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/230.0 | /option-chains/AAPL/nested/2026-10-16/235.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 2.15,
+          "provenance": "DERIVADO",
+          "source": "calc:min_value_to_receive",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0 | /option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/230.0 | /option-chains/AAPL/nested/2026-10-16/235.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "VALOR M\u00cdNIMO A RECEBER",
+        "pricing_type": "CREDIT",
+        "details": [
+          {
+            "leg": "SELL 1x AAPL  261016C00230000 $230.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.1,
+            "cash_flow": 2.1,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x AAPL  261016C00235000 $235.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 1.0,
+            "cash_flow": -1.0,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x AAPL  261016P00210000 $210.0 PUT exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.2,
+            "cash_flow": 2.2,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x AAPL  261016P00205000 $205.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 1.15,
+            "cash_flow": -1.15,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "AAPL  261016C00230000",
+          "strike": 230.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.18,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016C00235000",
+          "strike": 235.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.09,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 0.9,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 1.0,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016P00210000",
+          "strike": 210.0,
+          "type": "PUT",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.18,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.35,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016P00205000",
+          "strike": 205.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 1.05,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 1.15,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970607+00:00",
+      "notes": "IV Rank elevado (> 50) e Dire\u00e7\u00e3o Neutra. Sem eventos bin\u00e1rios no horizonte (FALSE)"
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "calendar_spread",
+      "strategy_name": "Calendar Spread",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "short_exp": "2026-10-16",
+        "long_exp": "2026-11-20",
+        "iv_short": {
+          "value": 34.0277,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_long": {
+          "value": 36.0,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/AAPL/nested/2026-11-20",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "term_structure_inverted": false
+      },
+      "rejection_reasons": [
+        "Estrutura a termo normal/contango (IV Curto=34.0% <= IV Longo=36.0%)"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970691+00:00",
+      "notes": "Rejeitado por aus\u00eancia de invers\u00e3o na curva de IV a termo."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "diagonal_spread",
+      "strategy_name": "Diagonal Spread / PMCC",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "has_long_delta_70_80": false
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 NEUTRO, esperado ALTA",
+        "Aus\u00eancia de perna longa com delta 0.70-0.80 dispon\u00edvel na cadeia"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970707+00:00",
+      "notes": "Rejeitado por crit\u00e9rios de tend\u00eancia ou perna longa indispon\u00edvel."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "put_ratio_spread",
+      "strategy_name": "Put Ratio Spread (1x2)",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 62.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -2.3,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/220.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 2.3,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/220.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x AAPL  261016P00220000 $220.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 6.7,
+            "cash_flow": -6.7,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 2x AAPL  261016P00210000 $210.0 PUT exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.2,
+            "cash_flow": 4.4,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "AAPL  261016P00220000",
+          "strike": 220.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.48,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 6.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 6.7,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016P00210000",
+          "strike": 210.0,
+          "type": "PUT",
+          "action": "SELL",
+          "ratio": 2,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.18,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.35,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970719+00:00",
+      "notes": "Crit\u00e9rios obrigat\u00f3rios atendidos: Dire\u00e7\u00e3o ALTA/NEUTRO e IV Rank > 50."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "call_backspread",
+      "strategy_name": "Call Backspread (1x2)",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_skew_favorable": true,
+        "used_proxy_limitation": false
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 NEUTRO, esperado ALTA"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970772+00:00",
+      "notes": "Rejeitado por dire\u00e7\u00e3o ou skew de volatilidade."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "bull_call_spread",
+      "strategy_name": "Bull Call Spread",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "BAIXA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 35.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 BAIXA, esperado ALTA"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970790+00:00",
+      "notes": "Rejeitado por crit\u00e9rios obrigat\u00f3rios de entrada."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "bear_put_spread",
+      "strategy_name": "Bear Put Spread",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "BAIXA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 35.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -6.7,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0 | /option-chains/QQQ/nested/2026-10-16/485.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 6.7,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0 | /option-chains/QQQ/nested/2026-10-16/485.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x QQQ   261016P00485000 $485.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 10.8,
+            "cash_flow": -10.8,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x QQQ   261016P00470000 $470.0 PUT exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 4.1,
+            "cash_flow": 4.1,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "QQQ   261016P00485000",
+          "strike": 485.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 10.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 10.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "QQQ   261016P00470000",
+          "strike": 470.0,
+          "type": "PUT",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 4.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 4.3,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970798+00:00",
+      "notes": "Crit\u00e9rios obrigat\u00f3rios atendidos: Dire\u00e7\u00e3o=BAIXA e IV Rank < 40."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "long_strangle",
+      "strategy_name": "Long Strangle",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 35.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": false,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/QQQ/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "IV Rank=35.0 >= 30.0",
+        "Evento no horizonte \u00e9 FALSE (Strangle exige catalisador/evento)"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970847+00:00",
+      "notes": "Rejeitado por crit\u00e9rios obrigat\u00f3rios."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "iron_condor",
+      "strategy_name": "Iron Condor",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 35.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "direction": {
+          "value": "BAIXA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": false,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/QQQ/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "IV Rank=35.0 <= 50.0",
+        "Dire\u00e7\u00e3o \u00e9 BAIXA, esperado NEUTRO"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970856+00:00",
+      "notes": "Rejeitado por crit\u00e9rios de entrada."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "calendar_spread",
+      "strategy_name": "Calendar Spread",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "short_exp": "2026-10-16",
+        "long_exp": "2026-11-20",
+        "iv_short": {
+          "value": 30.7448,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/QQQ/nested/2026-10-16",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_long": {
+          "value": 32.0,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/QQQ/nested/2026-11-20",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "term_structure_inverted": false
+      },
+      "rejection_reasons": [
+        "Estrutura a termo normal/contango (IV Curto=30.7% <= IV Longo=32.0%)"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970864+00:00",
+      "notes": "Rejeitado por aus\u00eancia de invers\u00e3o na curva de IV a termo."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "diagonal_spread",
+      "strategy_name": "Diagonal Spread / PMCC",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "BAIXA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "has_long_delta_70_80": false
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 BAIXA, esperado ALTA",
+        "Aus\u00eancia de perna longa com delta 0.70-0.80 dispon\u00edvel na cadeia"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970876+00:00",
+      "notes": "Rejeitado por crit\u00e9rios de tend\u00eancia ou perna longa indispon\u00edvel."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "put_ratio_spread",
+      "strategy_name": "Put Ratio Spread (1x2)",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "BAIXA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 35.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 BAIXA, esperado ALTA ou NEUTRO",
+        "IV Rank=35.0 <= 50.0"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970884+00:00",
+      "notes": "Rejeitado por crit\u00e9rios de entrada de IV Rank ou dire\u00e7\u00e3o."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "call_backspread",
+      "strategy_name": "Call Backspread (1x2)",
+      "status": "REJEITADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "BAIXA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_skew_favorable": true,
+        "used_proxy_limitation": false
+      },
+      "rejection_reasons": [
+        "Dire\u00e7\u00e3o \u00e9 BAIXA, esperado ALTA"
+      ],
+      "pricing": null,
+      "suggested_legs": [],
+      "timestamp": "2026-09-21T11:04:33.970892+00:00",
+      "notes": "Rejeitado por dire\u00e7\u00e3o ou skew de volatilidade."
+    }
+  ],
+  "opportunities": [
+    {
+      "symbol": "SPY",
+      "strategy_id": "bull_call_spread",
+      "strategy_name": "Bull Call Spread",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 25.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -4.8,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 4.8,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x SPY   261016C00515000 $515.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 7.6,
+            "cash_flow": -7.6,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.8,
+            "cash_flow": 2.8,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 7.4,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 7.6,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970168+00:00",
+      "notes": "Crit\u00e9rios obrigat\u00f3rios atendidos: Dire\u00e7\u00e3o=ALTA e IV Rank < 40."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "long_strangle",
+      "strategy_name": "Long Strangle",
+      "status": "CONDICIONAL",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 25.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": null,
+          "provenance": "INDISPONIVEL",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/SPY/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -6.2,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 6.2,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 2.95,
+            "cash_flow": -2.95,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x SPY   261016P00500000 $500.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 3.25,
+            "cash_flow": -3.25,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016P00500000",
+          "strike": 500.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 3.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 3.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/500.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970304+00:00",
+      "notes": "IV Rank baixo (< 30). Dado de evento no horizonte INDISPONIVEL na API \u2014 oportunidade classificada como CONDICIONAL"
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "calendar_spread",
+      "strategy_name": "Calendar Spread",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "short_exp": "2026-10-16",
+        "long_exp": "2026-11-20",
+        "iv_short": {
+          "value": 38.027,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_long": {
+          "value": 29.9474,
+          "provenance": "DERIVADO",
+          "source": "calc:atm_weighted_iv_proximity_formula",
+          "endpoint": "/option-chains/SPY/nested/2026-11-20",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "term_structure_inverted": true
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -4.1,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-11-20/515.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 4.1,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-11-20/515.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "SELL 1x SPY   261016C00515000 $515.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 7.4,
+            "cash_flow": 7.4,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x SPY   261120C00515000 $515.0 CALL exp 2026-11-20",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 11.5,
+            "cash_flow": -11.5,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 7.4,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 7.6,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261120C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-11-20",
+          "dte": 70,
+          "delta": {
+            "value": 0.52,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 11.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 11.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-11-20/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970386+00:00",
+      "notes": "Term structure invertida confirmada: IV 2026-10-16 > IV 2026-11-20."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "diagonal_spread",
+      "strategy_name": "Diagonal Spread / PMCC",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "has_long_delta_70_80": true
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -76.7,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0 | /option-chains/SPY/nested/2027-01-15/450.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 76.7,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0 | /option-chains/SPY/nested/2027-01-15/450.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x SPY   270115C00450000 $450.0 CALL exp 2027-01-15",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 79.5,
+            "cash_flow": -79.5,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.8,
+            "cash_flow": 2.8,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   270115C00450000",
+          "strike": 450.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2027-01-15",
+          "dte": 126,
+          "delta": {
+            "value": 0.76,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 78.0,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 79.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2027-01-15/450.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970452+00:00",
+      "notes": "Crit\u00e9rios atendidos: Dire\u00e7\u00e3o ALTA e perna longa profunda no dinheiro (delta 0.70-0.80) dispon\u00edvel."
+    },
+    {
+      "symbol": "SPY",
+      "strategy_id": "call_backspread",
+      "strategy_name": "Call Backspread (1x2)",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "ALTA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/SPY",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_skew_favorable": true,
+        "used_proxy_limitation": false
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": 1.5,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 1.5,
+          "provenance": "DERIVADO",
+          "source": "calc:min_value_to_receive",
+          "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0 | /option-chains/SPY/nested/2026-10-16/525.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "VALOR M\u00cdNIMO A RECEBER",
+        "pricing_type": "CREDIT",
+        "details": [
+          {
+            "leg": "SELL 1x SPY   261016C00515000 $515.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 7.4,
+            "cash_flow": 7.4,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 2x SPY   261016C00525000 $525.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 2.95,
+            "cash_flow": -5.9,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "SPY   261016C00515000",
+          "strike": 515.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 7.4,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 7.6,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/515.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "SPY   261016C00525000",
+          "strike": 525.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 2,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.95,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/SPY/nested/2026-10-16/525.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970522+00:00",
+      "notes": "Crit\u00e9rios atendidos: Dire\u00e7\u00e3o ALTA e skew de volatilidade favor\u00e1vel."
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "iron_condor",
+      "strategy_name": "Iron Condor",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "iv_rank": {
+          "value": 62.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "event_in_horizon": {
+          "value": false,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:events",
+          "endpoint": "/instruments/equities/AAPL/events",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": 2.15,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0 | /option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/230.0 | /option-chains/AAPL/nested/2026-10-16/235.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 2.15,
+          "provenance": "DERIVADO",
+          "source": "calc:min_value_to_receive",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0 | /option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/230.0 | /option-chains/AAPL/nested/2026-10-16/235.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "VALOR M\u00cdNIMO A RECEBER",
+        "pricing_type": "CREDIT",
+        "details": [
+          {
+            "leg": "SELL 1x AAPL  261016C00230000 $230.0 CALL exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.1,
+            "cash_flow": 2.1,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x AAPL  261016C00235000 $235.0 CALL exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 1.0,
+            "cash_flow": -1.0,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x AAPL  261016P00210000 $210.0 PUT exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.2,
+            "cash_flow": 2.2,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "BUY 1x AAPL  261016P00205000 $205.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 1.15,
+            "cash_flow": -1.15,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "AAPL  261016C00230000",
+          "strike": 230.0,
+          "type": "CALL",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.18,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/230.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016C00235000",
+          "strike": 235.0,
+          "type": "CALL",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": 0.09,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 0.9,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 1.0,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/235.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016P00210000",
+          "strike": 210.0,
+          "type": "PUT",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.18,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.35,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016P00205000",
+          "strike": 205.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 1.05,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 1.15,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/205.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970607+00:00",
+      "notes": "IV Rank elevado (> 50) e Dire\u00e7\u00e3o Neutra. Sem eventos bin\u00e1rios no horizonte (FALSE)"
+    },
+    {
+      "symbol": "AAPL",
+      "strategy_id": "put_ratio_spread",
+      "strategy_name": "Put Ratio Spread (1x2)",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "NEUTRO",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 62.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=AAPL",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -2.3,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/220.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 2.3,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0 | /option-chains/AAPL/nested/2026-10-16/220.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x AAPL  261016P00220000 $220.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 6.7,
+            "cash_flow": -6.7,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 2x AAPL  261016P00210000 $210.0 PUT exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 2.2,
+            "cash_flow": 4.4,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "AAPL  261016P00220000",
+          "strike": 220.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.48,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 6.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 6.7,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/220.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "AAPL  261016P00210000",
+          "strike": 210.0,
+          "type": "PUT",
+          "action": "SELL",
+          "ratio": 2,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.18,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 2.2,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 2.35,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/AAPL/nested/2026-10-16/210.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970719+00:00",
+      "notes": "Crit\u00e9rios obrigat\u00f3rios atendidos: Dire\u00e7\u00e3o ALTA/NEUTRO e IV Rank > 50."
+    },
+    {
+      "symbol": "QQQ",
+      "strategy_id": "bear_put_spread",
+      "strategy_name": "Bear Put Spread",
+      "status": "APROVADO",
+      "mandatory_criteria": {
+        "direction": {
+          "value": "BAIXA",
+          "provenance": "DERIVADO",
+          "source": "calc:trend_decision",
+          "endpoint": "/market-data/candles/QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "iv_rank": {
+          "value": 35.0,
+          "provenance": "MEDIDO",
+          "source": "tastytrade:market-metrics",
+          "endpoint": "/market-metrics?symbols=QQQ",
+          "timestamp": "2026-09-21T10:30:00Z"
+        }
+      },
+      "rejection_reasons": [],
+      "pricing": {
+        "net_cash_flow": {
+          "value": -6.7,
+          "provenance": "DERIVADO",
+          "source": "calc:net_cash_flow(ask_buys, bid_sells)",
+          "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0 | /option-chains/QQQ/nested/2026-10-16/485.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "display_value": {
+          "value": 6.7,
+          "provenance": "DERIVADO",
+          "source": "calc:cost_max_to_pay",
+          "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0 | /option-chains/QQQ/nested/2026-10-16/485.0",
+          "timestamp": "2026-09-21T10:30:00Z"
+        },
+        "label": "CUSTO M\u00c1XIMO A PAGAR",
+        "pricing_type": "DEBIT",
+        "details": [
+          {
+            "leg": "BUY 1x QQQ   261016P00485000 $485.0 PUT exp 2026-10-16",
+            "action": "BUY",
+            "used_metric": "ASK",
+            "price": 10.8,
+            "cash_flow": -10.8,
+            "status": "MEDIDO"
+          },
+          {
+            "leg": "SELL 1x QQQ   261016P00470000 $470.0 PUT exp 2026-10-16",
+            "action": "SELL",
+            "used_metric": "BID",
+            "price": 4.1,
+            "cash_flow": 4.1,
+            "status": "MEDIDO"
+          }
+        ]
+      },
+      "suggested_legs": [
+        {
+          "symbol": "QQQ   261016P00485000",
+          "strike": 485.0,
+          "type": "PUT",
+          "action": "BUY",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 10.5,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 10.8,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/485.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        },
+        {
+          "symbol": "QQQ   261016P00470000",
+          "strike": 470.0,
+          "type": "PUT",
+          "action": "SELL",
+          "ratio": 1,
+          "expiration": "2026-10-16",
+          "dte": 35,
+          "delta": {
+            "value": -0.25,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:greeks",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "bid": {
+            "value": 4.1,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          },
+          "ask": {
+            "value": 4.3,
+            "provenance": "MEDIDO",
+            "source": "tastytrade:quote",
+            "endpoint": "/option-chains/QQQ/nested/2026-10-16/470.0",
+            "timestamp": "2026-09-21T10:30:00Z"
+          }
+        }
+      ],
+      "timestamp": "2026-09-21T11:04:33.970798+00:00",
+      "notes": "Crit\u00e9rios obrigat\u00f3rios atendidos: Dire\u00e7\u00e3o=BAIXA e IV Rank < 40."
+    }
+  ]
+}
