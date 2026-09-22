@@ -10,6 +10,7 @@ Se menos de 200 candles disponíveis ou se houver dado incompleto: DADO INDISPON
 
 from __future__ import annotations
 
+import math
 from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Literal
@@ -37,6 +38,23 @@ def calculate_sma(closes: Sequence[float], period: int) -> float:
         raise ValueError(f"Histórico insuficiente para SMA({period}): {len(closes)} candles fornecidos.")
     window = closes[-period:]
     return sum(window) / period
+
+
+def calculate_realized_volatility(closes: Sequence[float], window: int = 20) -> float:
+    """
+    Calcula a volatilidade realizada histórica anualizada (RV) com base nos retornos
+    logarítmicos de fechamento a fechamento (Close-to-Close).
+    Fórmula: std(ln(P_t / P_{t-1})) * sqrt(252) * 100.
+    """
+    if len(closes) < window + 1:
+        raise ValueError(f"Histórico insuficiente para RV({window}): {len(closes)} candles fornecidos (mínimo {window + 1}).")
+
+    sub_closes = closes[-(window + 1):]
+    log_returns = [math.log(sub_closes[i] / sub_closes[i - 1]) for i in range(1, len(sub_closes))]
+    mean_ret = sum(log_returns) / len(log_returns)
+    variance = sum((r - mean_ret) ** 2 for r in log_returns) / (len(log_returns) - 1)
+    rv_annualized = math.sqrt(variance * 252.0) * 100.0
+    return round(rv_annualized, 2)
 
 
 def calculate_rsi(closes: Sequence[float], period: int = 14) -> float:

@@ -22,7 +22,7 @@ from typing import Literal
 
 from dotenv import load_dotenv
 
-from src.indicators import analyze_trend
+from src.indicators import analyze_trend, calculate_realized_volatility
 from src.models import MarketContext
 from src.pricing import OptionLeg
 from src.provenance import DataValue, current_iso_timestamp
@@ -217,6 +217,46 @@ class TastytradeClient:
                 )
                 term_map[exp] = term_iv
 
+        # RV20 e VRP (§1.3)
+        candle_vals = [c.value for c in candle_dvs if c.is_available and c.value is not None]
+        rv20_val: float | None = None
+        if len(candle_vals) >= 21:
+            try:
+                rv20_val = calculate_realized_volatility(candle_vals, window=20)
+            except Exception:  # noqa: BLE001, S110
+                pass
+
+        rv20_dv = (
+            DataValue.derivado(rv20_val, "calc:realized_volatility_20", endpoint_candles, now_ts)
+            if rv20_val is not None
+            else DataValue.indisponivel("calc:realized_volatility_20", endpoint_candles, now_ts)
+        )
+
+        vrp_val: float | None = None
+        if rv20_val is not None and term_map:
+            sorted_exps = sorted(term_map.keys())
+            first_exp_iv = next(
+                (term_map[k].value for k in sorted_exps if term_map[k].is_available and term_map[k].value is not None),
+                None
+            )
+            if first_exp_iv is not None:
+                vrp_val = round(first_exp_iv - rv20_val, 2)
+
+        vrp_dv = (
+            DataValue.derivado(vrp_val, "calc:vrp", endpoint_metrics, now_ts)
+            if vrp_val is not None
+            else DataValue.indisponivel("calc:vrp", endpoint_metrics, now_ts)
+        )
+
+        # Dividendos na fixture (§1.2)
+        div_ex_val = data.get("dividend_ex_date")
+        div_yield_val = data.get("dividend_yield")
+        div_rate_val = data.get("dividend_rate_per_share")
+
+        div_ex_dv = DataValue.medido(str(div_ex_val), "tastytrade:fixture", endpoint_metrics, now_ts) if div_ex_val else None
+        div_yield_dv = DataValue.medido(float(div_yield_val), "tastytrade:fixture", endpoint_metrics, now_ts) if div_yield_val is not None else None
+        div_rate_dv = DataValue.medido(float(div_rate_val), "tastytrade:fixture", endpoint_metrics, now_ts) if div_rate_val is not None else None
+
         return MarketContext(
             symbol=symbol,
             spot_price=spot_dv,
@@ -226,13 +266,18 @@ class TastytradeClient:
             event_in_horizon=event_dv,
             chains_by_expiration=chains_by_exp,
             term_structure_atm_iv=term_map,
-            timestamp=now_ts
+            timestamp=now_ts,
+            realized_volatility_20=rv20_dv,
+            volatility_risk_premium=vrp_dv,
+            dividend_yield=div_yield_dv,
+            dividend_ex_date=div_ex_dv,
+            dividend_rate_per_share=div_rate_dv
         )
 
     async def _fetch_live_context_async(self, symbol: str) -> MarketContext:
         """Coleta dados 100% ao vivo via API da Tastytrade e DXLink."""
         from tastytrade import DXLinkStreamer, Session
-        from tastytrade.dxfeed import Candle, Greeks, Quote
+        from tastytrade.dxfeed import Candle, Greeks, Quote, Summary
         from tastytrade.instruments import get_option_chain
         from tastytrade.metrics import get_market_metrics
 
@@ -265,6 +310,15 @@ class TastytradeClient:
             else DataValue.indisponivel("tastytrade:market-metrics", endpoint_metrics, now_ts)
         )
 
+        # Dividendos e Proventos (§1.2 e §14.2)
+        div_ex_val = str(metric.dividend_ex_date) if (metric and metric.dividend_ex_date) else None
+        div_yield_val = float(metric.dividend_yield) * 100.0 if (metric and metric.dividend_yield is not None) else None
+        div_rate_val = float(metric.dividend_rate_per_share) if (metric and metric.dividend_rate_per_share is not None) else None
+
+        div_ex_dv = DataValue.medido(div_ex_val, "tastytrade:market-metrics", endpoint_metrics, now_ts) if div_ex_val else None
+        div_yield_dv = DataValue.medido(round(div_yield_val, 2), "tastytrade:market-metrics", endpoint_metrics, now_ts) if div_yield_val is not None else None
+        div_rate_dv = DataValue.medido(round(div_rate_val, 2), "tastytrade:market-metrics", endpoint_metrics, now_ts) if div_rate_val is not None else None
+
         # Evento no horizonte
         event_dv: DataValue[bool | None]
         earnings_obj = getattr(metric, "earnings", None)
@@ -286,9 +340,9 @@ class TastytradeClient:
         raw_chain = await get_option_chain(session, symbol)
         today = datetime.now(timezone.utc).date()
 
-        # Seleciona vencimentos relevantes (20 a 70 dias para spreads, e > 90 para LEAPS se houver)
+        # Seleciona vencimentos relevantes (14 a 75 dias para spreads/calendars e > 90 para LEAPS se houver)
         all_exps = sorted(raw_chain.keys())
-        target_exps = [e for e in all_exps if 25 <= (e - today).days <= 65]
+        target_exps = [e for e in all_exps if 14 <= (e - today).days <= 75]
         if not target_exps and all_exps:
             target_exps = all_exps[:2]
         # Adiciona o mais longo para PMCC
@@ -300,6 +354,7 @@ class TastytradeClient:
         candle_closes: list[float] = []
         quotes_map: dict[str, tuple[float, float]] = {}  # streamer_sym -> (bid, ask)
         greeks_map: dict[str, tuple[float, float, float, float]] = {}  # streamer_sym -> (delta, gamma, theta, iv)
+        summary_map: dict[str, tuple[int | None, int | None]] = {}  # streamer_sym -> (open_interest, prev_volume)
 
         async with DXLinkStreamer(session) as streamer:
             # Assina cotação Spot
@@ -338,10 +393,14 @@ class TastytradeClient:
 
             streamer_syms = [o.streamer_symbol for o in selected_options]
 
-            # Assina Quotes e Greeks das opções
+            # Assina Quotes, Greeks e Summary (OI/Volume) das opções em lotes de 40 para não exceder o limite de 64KB do frame DXLink
             if streamer_syms:
-                await streamer.subscribe(Quote, streamer_syms)
-                await streamer.subscribe(Greeks, streamer_syms)
+                chunk_size = 40
+                for i in range(0, len(streamer_syms), chunk_size):
+                    chunk = streamer_syms[i : i + chunk_size]
+                    await streamer.subscribe(Quote, chunk)
+                    await streamer.subscribe(Greeks, chunk)
+                    await streamer.subscribe(Summary, chunk)
 
                 start_loop = asyncio.get_event_loop().time()
                 while asyncio.get_event_loop().time() - start_loop < 3.5:
@@ -367,6 +426,18 @@ class TastytradeClient:
                             )
                     except (asyncio.TimeoutError, Exception):  # noqa: BLE001, S110
                         pass
+
+                    try:
+                        while True:
+                            s_evt = streamer.get_event_nowait(Summary)
+                            if not s_evt:
+                                break
+                            oi_v = int(s_evt.open_interest) if (s_evt.open_interest is not None and s_evt.open_interest > 0) else None
+                            vol_v = int(s_evt.prev_day_volume) if (s_evt.prev_day_volume is not None and s_evt.prev_day_volume > 0) else None
+                            summary_map[s_evt.event_symbol] = (oi_v, vol_v)
+                    except (asyncio.TimeoutError, Exception):  # noqa: BLE001, S110
+                        pass
+
                     await asyncio.sleep(0.04)
 
         # 5. Constrói DataValues dos Candles e Tendência
@@ -401,9 +472,11 @@ class TastytradeClient:
 
                 q_data = quotes_map.get(st_sym, (0.0, 0.0))
                 g_data = greeks_map.get(st_sym, (0.0, 0.0, 0.0, 0.0))
+                s_data = summary_map.get(st_sym, (None, None))
 
                 bid_val, ask_val = q_data
                 delta_val, gamma_val, theta_val, iv_val = g_data
+                oi_val, vol_val = s_data
 
                 bid_dv = (
                     DataValue.medido(round(bid_val, 2), "tastytrade:quote", ep_strike, now_ts)
@@ -425,6 +498,16 @@ class TastytradeClient:
                     if iv_val > 0
                     else DataValue.indisponivel("tastytrade:greeks", ep_strike, now_ts)
                 )
+                oi_dv = (
+                    DataValue.medido(oi_val, "tastytrade:oi", ep_strike, now_ts)
+                    if oi_val is not None
+                    else None
+                )
+                vol_dv = (
+                    DataValue.medido(vol_val, "tastytrade:vol", ep_strike, now_ts)
+                    if vol_val is not None
+                    else None
+                )
 
                 legs_for_exp.append(
                     OptionLeg(
@@ -440,6 +523,8 @@ class TastytradeClient:
                         delta=delta_dv,
                         gamma=DataValue.medido(round(gamma_val, 4), "tastytrade:greeks", ep_strike, now_ts) if gamma_val else None,
                         theta=DataValue.medido(round(theta_val, 4), "tastytrade:greeks", ep_strike, now_ts) if theta_val else None,
+                        open_interest=oi_dv,
+                        volume=vol_dv,
                         iv=iv_dv
                     )
                 )
@@ -457,6 +542,36 @@ class TastytradeClient:
                 )
                 term_map[exp_str] = term_iv
 
+        # 8. Volatilidade Realizada (RV20) e VRP (§1.3)
+        rv20_val: float | None = None
+        if len(candle_closes) >= 21:
+            try:
+                rv20_val = calculate_realized_volatility(candle_closes, window=20)
+            except Exception:  # noqa: BLE001, S110
+                pass
+
+        rv20_dv = (
+            DataValue.derivado(rv20_val, "calc:realized_volatility_20", endpoint_candles, now_ts)
+            if rv20_val is not None
+            else DataValue.indisponivel("calc:realized_volatility_20", endpoint_candles, now_ts)
+        )
+
+        vrp_val: float | None = None
+        if rv20_val is not None and term_map:
+            sorted_exps = sorted(term_map.keys())
+            first_exp_iv = next(
+                (term_map[k].value for k in sorted_exps if term_map[k].is_available and term_map[k].value is not None),
+                None
+            )
+            if first_exp_iv is not None:
+                vrp_val = round(first_exp_iv - rv20_val, 2)
+
+        vrp_dv = (
+            DataValue.derivado(vrp_val, "calc:vrp", endpoint_metrics, now_ts)
+            if vrp_val is not None
+            else DataValue.indisponivel("calc:vrp", endpoint_metrics, now_ts)
+        )
+
         return MarketContext(
             symbol=symbol,
             spot_price=spot_dv,
@@ -466,7 +581,12 @@ class TastytradeClient:
             event_in_horizon=event_dv,
             chains_by_expiration=chains_by_exp,
             term_structure_atm_iv=term_map,
-            timestamp=now_ts
+            timestamp=now_ts,
+            realized_volatility_20=rv20_dv,
+            volatility_risk_premium=vrp_dv,
+            dividend_yield=div_yield_dv,
+            dividend_ex_date=div_ex_dv,
+            dividend_rate_per_share=div_rate_dv
         )
 
     def fetch_market_context_live_or_fixture(self, symbol: str) -> tuple[MarketContext, bool]:

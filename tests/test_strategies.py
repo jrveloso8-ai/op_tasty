@@ -33,10 +33,12 @@ def _make_dummy_leg(
     ask: float = 2.2,
     expiration: str = "2026-10-16",
     dte: int = 40,
-    iv: float = 30.0
+    iv: float = 30.0,
+    open_interest: int | None = None
 ) -> OptionLeg:
     endpoint = f"/chains/{symbol}/{strike}"
     ts = "2026-09-21T10:00:00Z"
+    oi_dv = DataValue.medido(open_interest, "api:oi", endpoint, ts) if open_interest is not None else None
     return OptionLeg(
         symbol=symbol,
         strike=strike,
@@ -48,7 +50,8 @@ def _make_dummy_leg(
         expiration=expiration,
         dte=dte,
         delta=DataValue.medido(delta, "api:greeks", endpoint, ts),
-        iv=DataValue.medido(iv, "api:greeks", endpoint, ts)
+        iv=DataValue.medido(iv, "api:greeks", endpoint, ts),
+        open_interest=oi_dv
     )
 
 
@@ -114,10 +117,14 @@ def _build_context(
 # -------------------------------------------------------------
 def test_bull_call_spread_pass() -> None:
     strat = BullCallSpreadStrategy()
-    ctx = _build_context(direction="ALTA", iv_rank=28.0)
+    leg_buy = _make_dummy_leg("SPY", 535.0, "CALL", 0.50, dte=40)
+    leg_sell = _make_dummy_leg("SPY", 545.0, "CALL", 0.25, dte=40)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+    ctx = _build_context(direction="ALTA", iv_rank=28.0, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "APROVADO"
     assert res.is_opportunity is True
+    assert len(res.suggested_legs) == 2
 
 
 def test_bull_call_spread_fail_direction() -> None:
@@ -136,14 +143,26 @@ def test_bull_call_spread_fail_iv_rank() -> None:
     assert any(">= 40.0" in r for r in res.rejection_reasons)
 
 
+def test_bull_call_spread_fail_missing_legs() -> None:
+    strat = BullCallSpreadStrategy()
+    ctx = _build_context(direction="ALTA", iv_rank=28.0, chains_by_exp={})
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Ausência de pernas" in r for r in res.rejection_reasons)
+
+
 # -------------------------------------------------------------
 # 2. BEAR PUT SPREAD
 # -------------------------------------------------------------
 def test_bear_put_spread_pass() -> None:
     strat = BearPutSpreadStrategy()
-    ctx = _build_context(direction="BAIXA", iv_rank=32.0)
+    leg_buy = _make_dummy_leg("SPY", 545.0, "PUT", -0.50, dte=40)
+    leg_sell = _make_dummy_leg("SPY", 535.0, "PUT", -0.25, dte=40)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+    ctx = _build_context(direction="BAIXA", iv_rank=32.0, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "APROVADO"
+    assert len(res.suggested_legs) == 2
 
 
 def test_bear_put_spread_fail_direction() -> None:
@@ -162,19 +181,34 @@ def test_bear_put_spread_fail_iv_rank() -> None:
     assert any(">= 40.0" in r for r in res.rejection_reasons)
 
 
+def test_bear_put_spread_fail_missing_legs() -> None:
+    strat = BearPutSpreadStrategy()
+    ctx = _build_context(direction="BAIXA", iv_rank=32.0, chains_by_exp={})
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Ausência de pernas" in r for r in res.rejection_reasons)
+
+
 # -------------------------------------------------------------
 # 3. LONG STRANGLE
 # -------------------------------------------------------------
 def test_long_strangle_pass_approved() -> None:
     strat = LongStrangleStrategy()
-    ctx = _build_context(iv_rank=22.0, event_in_horizon=True)
+    leg_c = _make_dummy_leg("SPY", 555.0, "CALL", 0.25, dte=40)
+    leg_p = _make_dummy_leg("SPY", 525.0, "PUT", -0.25, dte=40)
+    chains = {"2026-10-16": [leg_c, leg_p]}
+    ctx = _build_context(iv_rank=22.0, event_in_horizon=True, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "APROVADO"
+    assert len(res.suggested_legs) == 2
 
 
 def test_long_strangle_pass_conditional_when_event_indisponivel() -> None:
     strat = LongStrangleStrategy()
-    ctx = _build_context(iv_rank=22.0, event_in_horizon=None)  # evento INDISPONIVEL
+    leg_c = _make_dummy_leg("SPY", 555.0, "CALL", 0.25, dte=40)
+    leg_p = _make_dummy_leg("SPY", 525.0, "PUT", -0.25, dte=40)
+    chains = {"2026-10-16": [leg_c, leg_p]}
+    ctx = _build_context(iv_rank=22.0, event_in_horizon=None, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "CONDICIONAL"
     assert res.is_opportunity is True
@@ -197,21 +231,41 @@ def test_long_strangle_fail_no_event() -> None:
     assert any("FALSE" in r for r in res.rejection_reasons)
 
 
+def test_long_strangle_fail_missing_legs() -> None:
+    strat = LongStrangleStrategy()
+    ctx = _build_context(iv_rank=22.0, event_in_horizon=True, chains_by_exp={})
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Ausência de pernas" in r for r in res.rejection_reasons)
+
+
 # -------------------------------------------------------------
 # 4. IRON CONDOR
 # -------------------------------------------------------------
 def test_iron_condor_pass_approved() -> None:
     strat = IronCondorStrategy(wing_width=5.0)
-    ctx = _build_context(direction="NEUTRO", iv_rank=65.0, event_in_horizon=False)
+    sc = _make_dummy_leg("SPY", 555.0, "CALL", 0.16, dte=40)
+    lc = _make_dummy_leg("SPY", 560.0, "CALL", 0.10, dte=40)
+    sp = _make_dummy_leg("SPY", 525.0, "PUT", -0.16, dte=40)
+    lp = _make_dummy_leg("SPY", 520.0, "PUT", -0.10, dte=40)
+    chains = {"2026-10-16": [sc, lc, sp, lp]}
+    ctx = _build_context(direction="NEUTRO", iv_rank=65.0, event_in_horizon=False, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "APROVADO"
+    assert len(res.suggested_legs) == 4
 
 
 def test_iron_condor_pass_conditional_when_event_indisponivel() -> None:
-    strat = IronCondorStrategy()
-    ctx = _build_context(direction="NEUTRO", iv_rank=65.0, event_in_horizon=None)
+    strat = IronCondorStrategy(wing_width=5.0)
+    sc = _make_dummy_leg("SPY", 555.0, "CALL", 0.16, dte=40)
+    lc = _make_dummy_leg("SPY", 560.0, "CALL", 0.10, dte=40)
+    sp = _make_dummy_leg("SPY", 525.0, "PUT", -0.16, dte=40)
+    lp = _make_dummy_leg("SPY", 520.0, "PUT", -0.10, dte=40)
+    chains = {"2026-10-16": [sc, lc, sp, lp]}
+    ctx = _build_context(direction="NEUTRO", iv_rank=65.0, event_in_horizon=None, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "CONDICIONAL"
+    assert len(res.suggested_legs) == 4
 
 
 def test_iron_condor_fail_low_iv() -> None:
@@ -236,6 +290,14 @@ def test_iron_condor_fail_event_present() -> None:
     res = strat.evaluate(ctx)
     assert res.status == "REJEITADO"
     assert any("TRUE" in r for r in res.rejection_reasons)
+
+
+def test_iron_condor_fail_missing_legs() -> None:
+    strat = IronCondorStrategy()
+    ctx = _build_context(direction="NEUTRO", iv_rank=65.0, event_in_horizon=False, chains_by_exp={})
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Ausência de pernas" in r for r in res.rejection_reasons)
 
 
 # -------------------------------------------------------------
@@ -297,7 +359,7 @@ def test_diagonal_spread_fail_direction() -> None:
 
 def test_diagonal_spread_fail_no_deep_itm_call() -> None:
     strat = DiagonalSpreadStrategy()
-    # Perna longa só tem delta 0.40, sem opção 0.70-0.80
+    # Perna longa só tem delta 0.40, sem opção [0.70-0.85]
     chains = {
         "2026-10-16": [_make_dummy_leg("SPY", 550.0, "CALL", 0.25, dte=25)],
         "2027-01-15": [_make_dummy_leg("SPY", 540.0, "CALL", 0.40, dte=116)]
@@ -305,7 +367,29 @@ def test_diagonal_spread_fail_no_deep_itm_call() -> None:
     ctx = _build_context(direction="ALTA", chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "REJEITADO"
-    assert any("delta 0.70-0.80" in r for r in res.rejection_reasons)
+    assert any("Ausência de perna longa" in r for r in res.rejection_reasons)
+
+
+def test_diagonal_spread_fail_missing_short_leg_amc_scenario() -> None:
+    """
+    Cenário real identificado no AMC:
+    Tem CALL longa delta 0.78 no vencimento de 120 dias,
+    mas no vencimento curto (dte 30) NÃO há strike com delta 0.20-0.30 (ex: apenas 0.77 e 0.50).
+    A estratégia DEVE ser REJEITADA com motivo explícito, NUNCA aprovada sem pernas sugeridas.
+    """
+    strat = DiagonalSpreadStrategy()
+    chains = {
+        "2026-10-16": [
+            _make_dummy_leg("AMC", 2.5, "CALL", 0.77, dte=30),
+            _make_dummy_leg("AMC", 3.0, "CALL", 0.50, dte=30)
+        ],
+        "2027-01-15": [_make_dummy_leg("AMC", 2.0, "CALL", 0.78, dte=120)]
+    }
+    ctx = _build_context(symbol="AMC", price=2.91, direction="ALTA", chains_by_exp=chains)
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Ausência de perna curta com delta entre 0.20 e 0.30" in r for r in res.rejection_reasons)
+    assert len(res.suggested_legs) == 0
 
 
 # -------------------------------------------------------------
@@ -313,16 +397,24 @@ def test_diagonal_spread_fail_no_deep_itm_call() -> None:
 # -------------------------------------------------------------
 def test_put_ratio_spread_pass_alta() -> None:
     strat = PutRatioSpreadStrategy()
-    ctx = _build_context(direction="ALTA", iv_rank=58.0)
+    leg_buy = _make_dummy_leg("SPY", 545.0, "PUT", -0.45, dte=40)
+    leg_sell = _make_dummy_leg("SPY", 535.0, "PUT", -0.20, dte=40)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+    ctx = _build_context(direction="ALTA", iv_rank=58.0, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "APROVADO"
+    assert len(res.suggested_legs) == 2
 
 
 def test_put_ratio_spread_pass_neutro() -> None:
     strat = PutRatioSpreadStrategy()
-    ctx = _build_context(direction="NEUTRO", iv_rank=62.0)
+    leg_buy = _make_dummy_leg("SPY", 545.0, "PUT", -0.45, dte=40)
+    leg_sell = _make_dummy_leg("SPY", 535.0, "PUT", -0.20, dte=40)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+    ctx = _build_context(direction="NEUTRO", iv_rank=62.0, chains_by_exp=chains)
     res = strat.evaluate(ctx)
     assert res.status == "APROVADO"
+    assert len(res.suggested_legs) == 2
 
 
 def test_put_ratio_spread_fail_baixa() -> None:
@@ -339,6 +431,14 @@ def test_put_ratio_spread_fail_low_iv() -> None:
     res = strat.evaluate(ctx)
     assert res.status == "REJEITADO"
     assert any("<= 50.0" in r for r in res.rejection_reasons)
+
+
+def test_put_ratio_spread_fail_missing_legs() -> None:
+    strat = PutRatioSpreadStrategy()
+    ctx = _build_context(direction="ALTA", iv_rank=58.0, chains_by_exp={})
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Ausência de pernas" in r for r in res.rejection_reasons)
 
 
 # -------------------------------------------------------------
@@ -373,3 +473,203 @@ def test_call_backspread_fail_skew() -> None:
     res = strat.evaluate(ctx)
     assert res.status == "REJEITADO"
     assert any("desfavorável" in r.lower() for r in res.rejection_reasons)
+
+
+# -------------------------------------------------------------
+# 9. GESTÃO DE RISCO PARA ATIVOS DE ALTO VALOR (> $100)
+# -------------------------------------------------------------
+def test_put_ratio_spread_rejected_on_high_price_when_rule_enabled() -> None:
+    strat = PutRatioSpreadStrategy(prohibit_naked_on_high_price=True, high_price_threshold=100.0)
+    leg_buy = _make_dummy_leg("SPY", 545.0, "PUT", -0.45, dte=40)
+    leg_sell = _make_dummy_leg("SPY", 535.0, "PUT", -0.20, dte=40)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+    # Spot = 540.0 > 100.0 -> deve rejeitar por ponta nua a descoberto
+    ctx = _build_context(symbol="SPY", price=540.0, direction="ALTA", iv_rank=58.0, chains_by_exp=chains)
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Proibido risco não-definido/ponta a descoberto" in r for r in res.rejection_reasons)
+
+
+def test_put_ratio_spread_approved_on_low_price_when_rule_enabled() -> None:
+    strat = PutRatioSpreadStrategy(prohibit_naked_on_high_price=True, high_price_threshold=100.0)
+    leg_buy = _make_dummy_leg("BAC", 45.0, "PUT", -0.45, dte=40)
+    leg_sell = _make_dummy_leg("BAC", 40.0, "PUT", -0.20, dte=40)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+    # Spot = 44.0 <= 100.0 -> aprovado
+    ctx = _build_context(symbol="BAC", price=44.0, direction="ALTA", iv_rank=58.0, chains_by_exp=chains)
+    res = strat.evaluate(ctx)
+    assert res.status == "APROVADO"
+    assert len(res.suggested_legs) == 2
+
+
+def test_iron_condor_wing_width_capped_on_high_price() -> None:
+    # Se configurado wing_width=10.0, para spot > 100 deve capar em max_wing_width_high_price=5.0
+    strat = IronCondorStrategy(
+        wing_width=10.0,
+        high_price_threshold=100.0,
+        max_wing_width_high_price=5.0
+    )
+    # Pernas vendidas em delta 0.18
+    sc = _make_dummy_leg("SPY", 560.0, "CALL", 0.18, dte=35)
+    sp = _make_dummy_leg("SPY", 520.0, "PUT", -0.18, dte=35)
+    # Pernas compradas: a 5 pontos (565 / 515) e a 10 pontos (570 / 510)
+    lc_5 = _make_dummy_leg("SPY", 565.0, "CALL", 0.10, dte=35)
+    lc_10 = _make_dummy_leg("SPY", 570.0, "CALL", 0.05, dte=35)
+    lp_5 = _make_dummy_leg("SPY", 515.0, "PUT", -0.10, dte=35)
+    lp_10 = _make_dummy_leg("SPY", 510.0, "PUT", -0.05, dte=35)
+    chains = {"2026-10-16": [sc, sp, lc_5, lc_10, lp_5, lp_10]}
+    ctx = _build_context(symbol="SPY", price=540.0, direction="NEUTRO", iv_rank=60.0, event_in_horizon=False, chains_by_exp=chains)
+    res = strat.evaluate(ctx)
+    assert res.status == "APROVADO"
+    # A asa comprada de call deve ser 565.0 (largura 5), não 570.0 (largura 10)
+    bought_call = next(l for l in res.suggested_legs if l.action == "BUY" and l.option_type == "CALL")
+    assert bought_call.strike == 565.0
+    assert "Asa limitada a $5.00" in res.notes
+
+
+def test_long_strangle_high_price_capital_warning() -> None:
+    strat = LongStrangleStrategy(high_price_threshold=100.0)
+    c = _make_dummy_leg("NVDA", 130.0, "CALL", 0.25, dte=40)
+    p = _make_dummy_leg("NVDA", 110.0, "PUT", -0.25, dte=40)
+    chains = {"2026-10-16": [c, p]}
+    ctx = _build_context(symbol="NVDA", price=120.0, iv_rank=15.0, event_in_horizon=True, chains_by_exp=chains)
+    res = strat.evaluate(ctx)
+    assert res.status == "APROVADO"
+    assert "Gestão de Risco: Ativo com spot elevado" in res.notes
+
+
+def test_long_strangle_low_iv_rank_threshold_alert() -> None:
+    # IV Rank = 5.0% < threshold 20.0% -> alerta de piso histórico / vácuo de catalisador
+    strat = LongStrangleStrategy(low_iv_rank_threshold=20.0)
+    c = _make_dummy_leg("NVDA", 130.0, "CALL", 0.25, dte=40)
+    p = _make_dummy_leg("NVDA", 110.0, "PUT", -0.25, dte=40)
+    chains = {"2026-10-16": [c, p]}
+    ctx = _build_context(symbol="NVDA", price=50.0, iv_rank=5.0, event_in_horizon=True, chains_by_exp=chains)
+    res = strat.evaluate(ctx)
+    assert res.status == "APROVADO"
+    assert "IV Rank no piso histórico (5.0% < 20.0%)" in res.notes
+    assert "Possível vácuo de catalisador" in res.notes
+
+
+def test_liquidity_filter_rejects_low_open_interest() -> None:
+    # Opção com OI = 20 (< piso mínimo de 100) deve ser filtrada conforme §1.1
+    ts = "2026-09-22T10:00:00Z"
+    leg_illiquid = OptionLeg(
+        symbol="XYZ",
+        strike=100.0,
+        option_type="CALL",
+        action="BUY",
+        ratio=1,
+        bid=DataValue.medido(2.0, "api:quote", "/quote", ts),
+        ask=DataValue.medido(2.2, "api:quote", "/quote", ts),
+        expiration="2026-10-16",
+        dte=35,
+        delta=DataValue.medido(0.50, "api:greeks", "/greeks", ts),
+        open_interest=DataValue.medido(20, "api:oi", "/oi", ts)  # OI < 100
+    )
+    from src.strategies.base import find_option_by_delta
+    res = find_option_by_delta([leg_illiquid], target_delta=0.50, opt_type="CALL", min_open_interest=100)
+    assert res is None
+
+
+def test_dividend_assignment_risk_downgrades_bull_call_to_conditional() -> None:
+    # Ex-dividend ocorre em 2026-10-10 (antes do vencimento 2026-10-16) com provento $1.50 > extrínseco da Call 550 vendida ($0.80)
+    strat = BullCallSpreadStrategy()
+    leg_buy = _make_dummy_leg("SPY", 540.0, "CALL", 0.50, bid=5.0, ask=5.2)
+    leg_sell = _make_dummy_leg("SPY", 550.0, "CALL", 0.25, bid=0.75, ask=0.85)  # Mid $0.80, Strike 550 OTM (extrínseco $0.80)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+    ts = "2026-09-22T10:00:00Z"
+
+    ctx = _build_context(
+        symbol="SPY",
+        price=540.0,
+        direction="ALTA",
+        iv_rank=25.0,
+        chains_by_exp=chains
+    )
+    # Anexa dividendo que excede o extrínseco
+    ctx.dividend_ex_date = DataValue.medido("2026-10-10", "api:div", "/div", ts)
+    ctx.dividend_rate_per_share = DataValue.medido(1.50, "api:div", "/div", ts)
+
+    res = strat.evaluate(ctx)
+    assert res.status == "CONDICIONAL"
+    assert "RISCO DE ATRIBUIÇÃO POR DIVIDENDO" in res.notes
+    assert res.mandatory_criteria.get("dividend_assignment_risk", {}).get("risk") is True
+
+
+def test_put_ratio_spread_declares_undefined_risk_on_approval() -> None:
+    strat = PutRatioSpreadStrategy()
+    buy_put = _make_dummy_leg("XYZ", 90.0, "PUT", -0.45, bid=3.0, ask=3.2)
+    sell_put = _make_dummy_leg("XYZ", 80.0, "PUT", -0.20, bid=1.8, ask=2.0)
+    chains = {"2026-10-16": [buy_put, sell_put]}
+    ctx = _build_context(symbol="XYZ", price=85.0, direction="NEUTRO", iv_rank=65.0, chains_by_exp=chains)
+
+    res = strat.evaluate(ctx)
+    assert res.status == "APROVADO"
+    assert "RISCO NÃO DEFINIDO" in res.notes
+    assert res.mandatory_criteria.get("undefined_risk_warning", {}).get("declared") is True
+
+
+def test_iron_condor_downgrades_to_conditional_when_vrp_is_negative() -> None:
+    strat = IronCondorStrategy(wing_width=5.0)
+    c_short = _make_dummy_leg("SPY", 560.0, "CALL", 0.18, bid=1.0, ask=1.1)
+    c_long = _make_dummy_leg("SPY", 565.0, "CALL", 0.10, bid=0.4, ask=0.5)
+    p_short = _make_dummy_leg("SPY", 530.0, "PUT", -0.18, bid=1.0, ask=1.1)
+    p_long = _make_dummy_leg("SPY", 525.0, "PUT", -0.10, bid=0.4, ask=0.5)
+    chains = {"2026-10-16": [c_short, c_long, p_short, p_long]}
+    ts = "2026-09-22T10:00:00Z"
+
+    ctx = _build_context(symbol="SPY", price=545.0, direction="NEUTRO", iv_rank=60.0, chains_by_exp=chains, event_in_horizon=False)
+    # Anexa VRP negativo (ex: IV 22% < RV20 26% -> VRP = -4.0 pts)
+    ctx.volatility_risk_premium = DataValue.derivado(-4.0, "calc:vrp", "/vrp", ts)
+
+    res = strat.evaluate(ctx)
+    assert res.status == "CONDICIONAL"
+    assert "VRP NEGATIVO" in res.notes
+
+
+def test_put_ratio_spread_downgrades_to_conditional_when_vrp_is_negative() -> None:
+    strat = PutRatioSpreadStrategy()
+    buy_put = _make_dummy_leg("XYZ", 90.0, "PUT", -0.45, bid=3.0, ask=3.2)
+    sell_put = _make_dummy_leg("XYZ", 80.0, "PUT", -0.20, bid=1.8, ask=2.0)
+    chains = {"2026-10-16": [buy_put, sell_put]}
+    ts = "2026-09-22T10:00:00Z"
+    ctx = _build_context(symbol="XYZ", price=85.0, direction="NEUTRO", iv_rank=65.0, chains_by_exp=chains)
+    ctx.volatility_risk_premium = DataValue.derivado(-2.5, "calc:vrp", "/vrp", ts)
+
+    res = strat.evaluate(ctx)
+    assert res.status == "CONDICIONAL"
+    assert "VRP NEGATIVO" in res.notes
+
+
+def test_long_strangle_warns_when_vrp_is_excessively_high() -> None:
+    strat = LongStrangleStrategy()
+    call_leg = _make_dummy_leg("ABC", 110.0, "CALL", 0.25, bid=2.0, ask=2.2)
+    put_leg = _make_dummy_leg("ABC", 90.0, "PUT", -0.25, bid=2.0, ask=2.2)
+    chains = {"2026-10-16": [call_leg, put_leg]}
+    ts = "2026-09-22T10:00:00Z"
+    ctx = _build_context(symbol="ABC", price=100.0, iv_rank=18.0, event_in_horizon=True, chains_by_exp=chains)
+    ctx.volatility_risk_premium = DataValue.derivado(18.5, "calc:vrp", "/vrp", ts)
+
+    res = strat.evaluate(ctx)
+    assert res.status == "CONDICIONAL"
+    assert "VRP ELEVADO" in res.notes
+
+
+def test_strategies_respect_custom_liquidity_thresholds() -> None:
+    strat = BullCallSpreadStrategy()
+    strat.min_open_interest = 5000  # Config customizada
+    # leg_buy tem OI 1500 < 5000, leg_sell tem OI 6000
+    leg_buy = _make_dummy_leg("SPY", 540.0, "CALL", 0.50, bid=5.0, ask=5.2, open_interest=1500)
+    leg_sell = _make_dummy_leg("SPY", 550.0, "CALL", 0.25, bid=1.0, ask=1.2, open_interest=6000)
+    chains = {"2026-10-16": [leg_buy, leg_sell]}
+
+    ctx = _build_context(symbol="SPY", price=540.0, direction="ALTA", iv_rank=20.0, chains_by_exp=chains)
+    res = strat.evaluate(ctx)
+    assert res.status == "REJEITADO"
+    assert any("Ausência de pernas elegíveis" in r for r in res.rejection_reasons)
+
+
+
+
+

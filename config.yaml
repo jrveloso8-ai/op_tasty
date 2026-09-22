@@ -9,6 +9,23 @@ universe:
   - NVDA
   - IWM
   - TSLA
+  - OPEN
+  - AMC
+  - GRAB
+  - MPT
+  - NIO
+  - KEEL
+  - LCID
+  - JBLU
+  - SNAP
+  - CONL
+  - ONDS
+  - BULL
+  - SMR
+  - BB
+  - BAC
+  - KO
+  - PLTR
 
 strategy_params:
   iron_condor:
@@ -27,9 +44,26 @@ strategy_params:
     short_dte_max: 45
     long_delta_min: 0.70
     long_delta_max: 0.85
+  calendar:
+    short_dte_min: 20
+    short_dte_max: 40
+    long_dte_min: 45
+    long_dte_max: 75
+
+liquidity:
+  min_open_interest: 100
+  min_volume: 0
 
 tastytrade_api:
   base_url_prod: "https://api.tastytrade.com"
   base_url_cert: "https://api.cert.tastyworks.com"
   timeout_seconds: 15
   retry_attempts: 3
+
+# Gestão de Risco e Proteção de Capital para Ativos de Alto Valor Nominal (> $100)
+risk_management:
+  high_price_threshold: 100.0
+  prohibit_naked_on_high_price: true
+  max_wing_width_high_price: 5.0
+  low_iv_rank_threshold: 20.0
+

@@ -27,6 +27,11 @@ class MarketContext:
     chains_by_expiration: dict[str, list[OptionLeg]] = field(default_factory=dict)
     term_structure_atm_iv: dict[str, DataValue[float]] = field(default_factory=dict)
     timestamp: str = ""
+    realized_volatility_20: DataValue[float] | None = None
+    volatility_risk_premium: DataValue[float] | None = None
+    dividend_yield: DataValue[float] | None = None
+    dividend_ex_date: DataValue[str] | None = None
+    dividend_rate_per_share: DataValue[float] | None = None
 
     def get_expirations_in_dte_range(self, min_dte: int, max_dte: int) -> list[str]:
         """Filtra vencimentos disponíveis dentro da janela de DTE especificada."""

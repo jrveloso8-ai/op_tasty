@@ -26,6 +26,8 @@ wheels/
 
 # Environment variables & secrets
 .env
+.env*
+*.bak
 *.local
 
 # IDE
@@ -39,3 +41,7 @@ node_modules/
 npm-debug.log*
 
 .claude/
+
+# Temporary / Scratch
+scratch/
+

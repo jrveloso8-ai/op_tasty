@@ -7,6 +7,7 @@ Verifica:
 """
 
 import ast
+import json
 import re
 import sys
 from pathlib import Path
@@ -50,17 +51,48 @@ def check_ast_provenance_dataclass(root_dir: Path) -> list[str]:
     return violations
 
 
+def check_json_chains_provenance(json_path: Path) -> list[str]:
+    """Verifica se as opções na cadeia do JSON de saída contêm proveniência DataValue em todos os campos requeridos, incluindo 'mid'."""
+    violations: list[str] = []
+    if not json_path.exists():
+        return violations
+
+    try:
+        data = json.loads(json_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        violations.append(f"Erro ao ler {json_path.name}: {exc}")
+        return violations
+
+    chains = data.get("chains", {})
+    for sym, exp_dict in chains.items():
+        for exp, legs in exp_dict.items():
+            for leg in legs:
+                # Checa se 'mid' é um objeto DataValue válido
+                mid = leg.get("mid")
+                if mid is None or not isinstance(mid, dict):
+                    violations.append(f"[{json_path.name} | {sym} {exp} strike {leg.get('strike')}] Campo 'mid' não é um DataValue envelopado.")
+                    continue
+                if "provenance" not in mid or "source" not in mid:
+                    violations.append(f"[{json_path.name} | {sym} {exp} strike {leg.get('strike')}] DataValue 'mid' sem 'provenance' ou 'source'.")
+                if mid.get("provenance") not in ("DERIVADO", "INDISPONIVEL"):
+                    violations.append(f"[{json_path.name} | {sym} {exp} strike {leg.get('strike')}] DataValue 'mid' possui proveniência inválida: {mid.get('provenance')}.")
+
+    return violations
+
+
 def check_frontend_provenance(html_path: Path) -> list[str]:
-    """Garante que todo valor no HTML utiliza o componente/função DataValue.render."""
+    """Garante que todo valor no HTML utiliza o componente/função DataValue.render e que não há fallback de INDISPONIVEL para 0 em gráficos."""
     violations: list[str] = []
     if not html_path.exists():
         return violations
 
     content = html_path.read_text(encoding="utf-8")
-    # Procura por inserções cruas como {{ value }} ou interpolações de preço sem DataValue
-    # Verifica que DataValue.render ou renderDataValue é a única via de formatação
     if "DataValue.render" not in content and "renderDataValue" not in content:
         violations.append("O arquivo index.html deve implementar e utilizar o componente 'DataValue' para exibição.")
+
+    # Verifica se os gráficos tratam INDISPONIVEL sem fazer fallback silencioso para 0.00 (Achado 1 e Achado A)
+    if 'provenance !== "INDISPONIVEL"' not in content and "display_value" in content:
+        violations.append("index.html não filtra estruturas com display_value.provenance !== 'INDISPONIVEL' em gráficos.")
 
     return violations
 
@@ -70,6 +102,10 @@ def main() -> int:
     violations = []
     violations.extend(check_forbidden_estimado(root))
     violations.extend(check_ast_provenance_dataclass(root))
+
+    json_file = root / "screener_output.json"
+    if json_file.exists():
+        violations.extend(check_json_chains_provenance(json_file))
 
     html_file = root / "index.html"
     if html_file.exists():
@@ -87,3 +123,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

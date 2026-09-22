@@ -69,3 +69,22 @@ def test_fixtures_load_qqq() -> None:
     assert ctx.iv_rank.value == 35.0
     assert ctx.trend.direction.value == "BAIXA"
     assert ctx.event_in_horizon.value is False
+
+
+def test_vrp_uses_chronological_front_expiry() -> None:
+    client = TastytradeClient()
+    ctx = client.fetch_market_context_from_fixture("SPY")
+    assert ctx.realized_volatility_20 is not None
+    assert ctx.volatility_risk_premium is not None
+    assert ctx.realized_volatility_20.is_available is True
+    assert ctx.volatility_risk_premium.is_available is True
+    assert ctx.realized_volatility_20.value is not None
+    assert ctx.volatility_risk_premium.value is not None
+
+    sorted_exps = sorted(ctx.term_structure_atm_iv.keys())
+    assert sorted_exps[0] == "2026-10-16"
+    first_iv = ctx.term_structure_atm_iv["2026-10-16"].value
+    assert first_iv is not None
+    expected_vrp = round(first_iv - ctx.realized_volatility_20.value, 2)
+    assert ctx.volatility_risk_premium.value == expected_vrp
+

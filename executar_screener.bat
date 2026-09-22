@@ -35,16 +35,10 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo.
-echo [3/3] Abrindo painel Financial Dark no navegador padrao...
-start "" "index.html"
+echo [3/3] Iniciando Servidor Local com Auto-Refresh (30 min) e Atualizacao sob Demanda...
+echo O painel abrira automaticamente no seu navegador padrao.
+echo Mantenha esta janela aberta para permitir atualizacoes em tempo real.
+echo Pressione Ctrl+C para encerrar o servidor quando terminar.
+echo.
+python scripts/serve.py
 
-echo.
-echo ======================================================================
-echo  Execucao concluida com sucesso!
-echo  Resultados disponiveis em:
-echo    - index.html (Painel Interativo)
-echo    - screener_output.csv (Exportacao Tabular)
-echo    - screener_output.json (Payload Auditavel)
-echo ======================================================================
-echo.
-pause

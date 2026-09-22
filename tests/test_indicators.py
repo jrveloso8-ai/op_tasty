@@ -183,3 +183,13 @@ def test_contagion_in_candle_history() -> None:
     assert result.direction.provenance == "INDISPONIVEL"
     assert result.direction.value is None
     assert "contágio" in result.notes.lower()
+
+
+def test_calculate_realized_volatility_formula() -> None:
+    from src.indicators import calculate_realized_volatility
+    # Preços com retornos constantes de 1% ao dia
+    closes = [100.0 * (1.01 ** i) for i in range(25)]
+    rv = calculate_realized_volatility(closes, window=20)
+    assert rv is not None
+    # Como os retornos são quase constantes, a variância é muito próxima de zero
+    assert 0.0 <= rv <= 2.0

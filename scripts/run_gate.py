@@ -20,7 +20,7 @@ def run_step(step_name: str, command: list[str]) -> bool:
     print(f"{'='*70}")
 
     start_time = time.time()
-    proc = subprocess.run(command, capture_output=True, text=True)
+    proc = subprocess.run(command, capture_output=True, text=True, check=False)
     duration = time.time() - start_time
 
     if proc.stdout:
